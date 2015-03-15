@@ -1,0 +1,1985 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Internet Relay Chat Protocol v3</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents"/>
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Requirements Language"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 Protocol structure"/>
+<link href="#rfc.section.2.1" rel="Chapter" title="2.1 Character encoding"/>
+<link href="#rfc.section.2.2" rel="Chapter" title="2.2 Messages"/>
+<link href="#rfc.section.2.2.1" rel="Chapter" title="2.2.1 Tags"/>
+<link href="#rfc.section.2.2.2" rel="Chapter" title="2.2.2 Prefix"/>
+<link href="#rfc.section.2.2.3" rel="Chapter" title="2.2.3 Command"/>
+<link href="#rfc.section.2.3" rel="Chapter" title="2.3 Wire format"/>
+<link href="#rfc.section.2.3.1" rel="Chapter" title="2.3.1 Wire format in 'pseudo' BNF"/>
+<link href="#rfc.section.3" rel="Chapter" title="3 Connection registration"/>
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Capability negotiation"/>
+<link href="#rfc.section.3.2" rel="Chapter" title="3.2 RPL_ISUPPORT"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 Command details"/>
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 AWAY command"/>
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 CAP command"/>
+<link href="#rfc.section.4.2.1" rel="Chapter" title="4.2.1 Capability modifiers"/>
+<link href="#rfc.section.4.2.2" rel="Chapter" title="4.2.2 CAP subcommands"/>
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 CONNECT command"/>
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 ERROR command"/>
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 INFO command"/>
+<link href="#rfc.section.4.6" rel="Chapter" title="4.6 INVITE command"/>
+<link href="#rfc.section.4.7" rel="Chapter" title="4.7 ISON command"/>
+<link href="#rfc.section.4.8" rel="Chapter" title="4.8 JOIN command"/>
+<link href="#rfc.section.4.9" rel="Chapter" title="4.9 KICK command"/>
+<link href="#rfc.section.4.10" rel="Chapter" title="4.10 KILL command"/>
+<link href="#rfc.section.4.11" rel="Chapter" title="4.11 LINKS command"/>
+<link href="#rfc.section.4.12" rel="Chapter" title="4.12 LIST command"/>
+<link href="#rfc.section.4.13" rel="Chapter" title="4.13 MODE command"/>
+<link href="#rfc.section.4.13.1" rel="Chapter" title="4.13.1 Channel modes"/>
+<link href="#rfc.section.4.13.2" rel="Chapter" title="4.13.2 User modes"/>
+<link href="#rfc.section.4.14" rel="Chapter" title="4.14 NAMES command"/>
+<link href="#rfc.section.4.15" rel="Chapter" title="4.15 NICK command"/>
+<link href="#rfc.section.4.16" rel="Chapter" title="4.16 NOTICE command"/>
+<link href="#rfc.section.4.17" rel="Chapter" title="4.17 OPER command"/>
+<link href="#rfc.section.4.18" rel="Chapter" title="4.18 PART command"/>
+<link href="#rfc.section.4.19" rel="Chapter" title="4.19 PASS command"/>
+<link href="#rfc.section.4.20" rel="Chapter" title="4.20 PING command"/>
+<link href="#rfc.section.4.21" rel="Chapter" title="4.21 PONG command"/>
+<link href="#rfc.section.4.22" rel="Chapter" title="4.22 PRIVMSG command"/>
+<link href="#rfc.section.4.23" rel="Chapter" title="4.23 QUIT command"/>
+<link href="#rfc.section.4.24" rel="Chapter" title="4.24 REHASH command"/>
+<link href="#rfc.section.4.25" rel="Chapter" title="4.25 RESTART command"/>
+<link href="#rfc.section.4.26" rel="Chapter" title="4.26 STATS command"/>
+<link href="#rfc.section.4.27" rel="Chapter" title="4.27 TIME command"/>
+<link href="#rfc.section.4.28" rel="Chapter" title="4.28 TOPIC command"/>
+<link href="#rfc.section.4.29" rel="Chapter" title="4.29 TRACE command"/>
+<link href="#rfc.section.4.30" rel="Chapter" title="4.30 USER command"/>
+<link href="#rfc.section.4.31" rel="Chapter" title="4.31 USERHOST command"/>
+<link href="#rfc.section.4.32" rel="Chapter" title="4.32 USERS command"/>
+<link href="#rfc.section.4.33" rel="Chapter" title="4.33 VERSION command"/>
+<link href="#rfc.section.4.34" rel="Chapter" title="4.34 WALLOPS command"/>
+<link href="#rfc.section.4.35" rel="Chapter" title="4.35 WHO command"/>
+<link href="#rfc.section.4.36" rel="Chapter" title="4.36 WHOIS command"/>
+<link href="#rfc.section.4.37" rel="Chapter" title="4.37 WHOWAS command"/>
+<link href="#rfc.section.5" rel="Chapter" title="5 Numeric replies"/>
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Command responses"/>
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 Error responses"/>
+<link href="#rfc.section.6" rel="Chapter" title="6 Client and server authentication"/>
+<link href="#rfc.section.7" rel="Chapter" title="7 Current implementations"/>
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Transport layers"/>
+<link href="#rfc.section.7.1.1" rel="Chapter" title="7.1.1 TCP"/>
+<link href="#rfc.section.7.1.2" rel="Chapter" title="7.1.2 SCTP"/>
+<link href="#rfc.section.7.1.3" rel="Chapter" title="7.1.3 UNIX sockets"/>
+<link href="#rfc.section.7.2" rel="Chapter" title="7.2 Command parsing"/>
+<link href="#rfc.section.7.3" rel="Chapter" title="7.3 Message delivery"/>
+<link href="#rfc.section.7.4" rel="Chapter" title="7.4 Connection 'Liveness'"/>
+<link href="#rfc.section.7.5" rel="Chapter" title="7.5 Establishing a server to client connection"/>
+<link href="#rfc.section.7.6" rel="Chapter" title="7.6 Establishing a server-server connection"/>
+<link href="#rfc.section.7.6.1" rel="Chapter" title="7.6.1 Server exchange of state information when connecting"/>
+<link href="#rfc.section.7.7" rel="Chapter" title="7.7 Terminating server-client connections"/>
+<link href="#rfc.section.7.8" rel="Chapter" title="7.8 Terminating server-server connections"/>
+<link href="#rfc.section.7.9" rel="Chapter" title="7.9 Tracking nickname changes"/>
+<link href="#rfc.section.7.10" rel="Chapter" title="7.10 Flood control of clients"/>
+<link href="#rfc.section.7.11" rel="Chapter" title="7.11 Non-blocking lookups"/>
+<link href="#rfc.section.7.12" rel="Chapter" title="7.12 Operators"/>
+<link href="#rfc.section.7.13" rel="Chapter" title="7.13 Allowing servers to connect"/>
+<link href="#rfc.section.7.14" rel="Chapter" title="7.14 Administrivia"/>
+<link href="#rfc.section.8" rel="Chapter" title="8 Acknowledgements"/>
+<link href="#rfc.section.9" rel="Chapter" title="9 IANA Considerations"/>
+<link href="#rfc.section.9.1" rel="Chapter" title="9.1 IRC capability registry"/>
+<link href="#rfc.section.9.2" rel="Chapter" title="9.2 IRC tag registry"/>
+<link href="#rfc.section.9.3" rel="Chapter" title="9.3 IRC numeric registry"/>
+<link href="#rfc.section.10" rel="Chapter" title="10 Security Considerations"/>
+<link href="#rfc.references" rel="Chapter" title="11 Normative References"/>
+<link href="#rfc.appendix.A" rel="Chapter" title="A List of known RPL_ISUPPORT tokens"/>
+<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 CASEMAPPING"/>
+<link href="#rfc.appendix.A.2" rel="Chapter" title="A.2 CHARSET"/>
+<link href="#rfc.appendix.A.3" rel="Chapter" title="A.3 PREFIX"/>
+<link href="#rfc.appendix.A.4" rel="Chapter" title="A.4 CHANTYPES"/>
+<link href="#rfc.appendix.A.5" rel="Chapter" title="A.5 CHANMODES"/>
+<link href="#rfc.appendix.A.6" rel="Chapter" title="A.6 NETWORK"/>
+<link href="#rfc.appendix.A.7" rel="Chapter" title="A.7 MODES"/>
+<link href="#rfc.appendix.A.8" rel="Chapter" title="A.8 MAXCHANNELS"/>
+<link href="#rfc.appendix.A.9" rel="Chapter" title="A.9 CHANLIMIT"/>
+<link href="#rfc.appendix.A.10" rel="Chapter" title="A.10 NICKLEN"/>
+<link href="#rfc.appendix.A.11" rel="Chapter" title="A.11 MAXLIST"/>
+<link href="#rfc.appendix.A.12" rel="Chapter" title="A.12 EXCEPTS"/>
+<link href="#rfc.appendix.A.13" rel="Chapter" title="A.13 INVEX"/>
+<link href="#rfc.appendix.A.14" rel="Chapter" title="A.14 KNOCK"/>
+<link href="#rfc.appendix.A.15" rel="Chapter" title="A.15 STATUSMSG"/>
+<link href="#rfc.appendix.A.16" rel="Chapter" title="A.16 CALLERID"/>
+<link href="#rfc.appendix.A.17" rel="Chapter" title="A.17 CHANNELLEN"/>
+<link href="#rfc.appendix.A.18" rel="Chapter" title="A.18 TOPICLEN"/>
+<link href="#rfc.appendix.A.19" rel="Chapter" title="A.19 AWAYLEN"/>
+<link href="#rfc.authors" rel="Chapter"/>
+
+
+  <meta name="generator" content="xml2rfc version 2.4.7 - http://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Allnutt, J., Ed." />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-jallnutt-ircv3" />
+  <meta name="dct.issued" scheme="ISO8601" content="2015-3-15" />
+  <meta name="dct.abstract" content="This document obseletes RFCs 1459 and 2812 and defines version 3 of the Internet Relay Chat protocol." />
+  <meta name="description" content="This document obseletes RFCs 1459 and 2812 and defines version 3 of the Internet Relay Chat protocol." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+  <td class="left">Network Working Group</td>
+  <td class="right">J. Allnutt, Ed.</td>
+</tr>
+<tr>
+  <td class="left">Internet-Draft</td>
+  <td class="right">Kiwi IRC</td>
+</tr>
+<tr>
+  <td class="left">Obsoletes: 1459, 2812 (if approved)</td>
+  <td class="right">March 15, 2015</td>
+</tr>
+<tr>
+  <td class="left">Intended status: Standards Track</td>
+  <td class="right"></td>
+</tr>
+<tr>
+  <td class="left">Expires: September 16, 2015</td>
+  <td class="right"></td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Internet Relay Chat Protocol v3<br />
+  <span class="filename">draft-jallnutt-ircv3</span></p>
+  
+  <h1 id="rfc.abstract">
+  <a href="#rfc.abstract">Abstract</a>
+</h1>
+<p>This document obseletes RFCs 1459 and 2812 and defines version 3 of the Internet Relay Chat protocol.</p>
+<h1 id="rfc.status">
+  <a href="#rfc.status">Status of This Memo</a>
+</h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on September 16, 2015.</p>
+<h1 id="rfc.copyrightnotice">
+  <a href="#rfc.copyrightnotice">Copyright Notice</a>
+</h1>
+<p>Copyright (c) 2015 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
+<li>1.1.   <a href="#rfc.section.1.1">Requirements Language</a></li>
+<li>2.   <a href="#rfc.section.2">Protocol structure</a></li>
+<li>2.1.   <a href="#rfc.section.2.1">Character encoding</a></li>
+<li>2.2.   <a href="#rfc.section.2.2">Messages</a></li>
+<li>2.2.1.   <a href="#rfc.section.2.2.1">Tags</a></li>
+<li>2.2.2.   <a href="#rfc.section.2.2.2">Prefix</a></li>
+<li>2.2.3.   <a href="#rfc.section.2.2.3">Command</a></li>
+<li>2.3.   <a href="#rfc.section.2.3">Wire format</a></li>
+<li>2.3.1.   <a href="#rfc.section.2.3.1">Wire format in 'pseudo' BNF</a></li>
+<li>3.   <a href="#rfc.section.3">Connection registration</a></li>
+<li>3.1.   <a href="#rfc.section.3.1">Capability negotiation</a></li>
+<li>3.2.   <a href="#rfc.section.3.2">RPL_ISUPPORT</a></li>
+<li>4.   <a href="#rfc.section.4">Command details</a></li>
+<li>4.1.   <a href="#rfc.section.4.1">AWAY command</a></li>
+<li>4.2.   <a href="#rfc.section.4.2">CAP command</a></li>
+<li>4.2.1.   <a href="#rfc.section.4.2.1">Capability modifiers</a></li>
+<li>4.2.2.   <a href="#rfc.section.4.2.2">CAP subcommands</a></li>
+<li>4.3.   <a href="#rfc.section.4.3">CONNECT command</a></li>
+<li>4.4.   <a href="#rfc.section.4.4">ERROR command</a></li>
+<li>4.5.   <a href="#rfc.section.4.5">INFO command</a></li>
+<li>4.6.   <a href="#rfc.section.4.6">INVITE command</a></li>
+<li>4.7.   <a href="#rfc.section.4.7">ISON command</a></li>
+<li>4.8.   <a href="#rfc.section.4.8">JOIN command</a></li>
+<li>4.9.   <a href="#rfc.section.4.9">KICK command</a></li>
+<li>4.10.   <a href="#rfc.section.4.10">KILL command</a></li>
+<li>4.11.   <a href="#rfc.section.4.11">LINKS command</a></li>
+<li>4.12.   <a href="#rfc.section.4.12">LIST command</a></li>
+<li>4.13.   <a href="#rfc.section.4.13">MODE command</a></li>
+<li>4.13.1.   <a href="#rfc.section.4.13.1">Channel modes</a></li>
+<li>4.13.2.   <a href="#rfc.section.4.13.2">User modes</a></li>
+<li>4.14.   <a href="#rfc.section.4.14">NAMES command</a></li>
+<li>4.15.   <a href="#rfc.section.4.15">NICK command</a></li>
+<li>4.16.   <a href="#rfc.section.4.16">NOTICE command</a></li>
+<li>4.17.   <a href="#rfc.section.4.17">OPER command</a></li>
+<li>4.18.   <a href="#rfc.section.4.18">PART command</a></li>
+<li>4.19.   <a href="#rfc.section.4.19">PASS command</a></li>
+<li>4.20.   <a href="#rfc.section.4.20">PING command</a></li>
+<li>4.21.   <a href="#rfc.section.4.21">PONG command</a></li>
+<li>4.22.   <a href="#rfc.section.4.22">PRIVMSG command</a></li>
+<li>4.23.   <a href="#rfc.section.4.23">QUIT command</a></li>
+<li>4.24.   <a href="#rfc.section.4.24">REHASH command</a></li>
+<li>4.25.   <a href="#rfc.section.4.25">RESTART command</a></li>
+<li>4.26.   <a href="#rfc.section.4.26">STATS command</a></li>
+<li>4.27.   <a href="#rfc.section.4.27">TIME command</a></li>
+<li>4.28.   <a href="#rfc.section.4.28">TOPIC command</a></li>
+<li>4.29.   <a href="#rfc.section.4.29">TRACE command</a></li>
+<li>4.30.   <a href="#rfc.section.4.30">USER command</a></li>
+<li>4.31.   <a href="#rfc.section.4.31">USERHOST command</a></li>
+<li>4.32.   <a href="#rfc.section.4.32">USERS command</a></li>
+<li>4.33.   <a href="#rfc.section.4.33">VERSION command</a></li>
+<li>4.34.   <a href="#rfc.section.4.34">WALLOPS command</a></li>
+<li>4.35.   <a href="#rfc.section.4.35">WHO command</a></li>
+<li>4.36.   <a href="#rfc.section.4.36">WHOIS command</a></li>
+<li>4.37.   <a href="#rfc.section.4.37">WHOWAS command</a></li>
+<li>5.   <a href="#rfc.section.5">Numeric replies</a></li>
+<li>5.1.   <a href="#rfc.section.5.1">Command responses</a></li>
+<li>5.2.   <a href="#rfc.section.5.2">Error responses</a></li>
+<li>6.   <a href="#rfc.section.6">Client and server authentication</a></li>
+<li>7.   <a href="#rfc.section.7">Current implementations</a></li>
+<li>7.1.   <a href="#rfc.section.7.1">Transport layers</a></li>
+<li>7.1.1.   <a href="#rfc.section.7.1.1">TCP</a></li>
+<li>7.1.2.   <a href="#rfc.section.7.1.2">SCTP</a></li>
+<li>7.1.3.   <a href="#rfc.section.7.1.3">UNIX sockets</a></li>
+<li>7.2.   <a href="#rfc.section.7.2">Command parsing</a></li>
+<li>7.3.   <a href="#rfc.section.7.3">Message delivery</a></li>
+<li>7.4.   <a href="#rfc.section.7.4">Connection 'Liveness'</a></li>
+<li>7.5.   <a href="#rfc.section.7.5">Establishing a server to client connection</a></li>
+<li>7.6.   <a href="#rfc.section.7.6">Establishing a server-server connection</a></li>
+<li>7.6.1.   <a href="#rfc.section.7.6.1">Server exchange of state information when connecting</a></li>
+<li>7.7.   <a href="#rfc.section.7.7">Terminating server-client connections</a></li>
+<li>7.8.   <a href="#rfc.section.7.8">Terminating server-server connections</a></li>
+<li>7.9.   <a href="#rfc.section.7.9">Tracking nickname changes</a></li>
+<li>7.10.   <a href="#rfc.section.7.10">Flood control of clients</a></li>
+<li>7.11.   <a href="#rfc.section.7.11">Non-blocking lookups</a></li>
+<li>7.12.   <a href="#rfc.section.7.12">Operators</a></li>
+<li>7.13.   <a href="#rfc.section.7.13">Allowing servers to connect</a></li>
+<li>7.14.   <a href="#rfc.section.7.14">Administrivia</a></li>
+<li>8.   <a href="#rfc.section.8">Acknowledgements</a></li>
+<li>9.   <a href="#rfc.section.9">IANA Considerations</a></li>
+<li>9.1.   <a href="#rfc.section.9.1">IRC capability registry</a></li>
+<li>9.2.   <a href="#rfc.section.9.2">IRC tag registry</a></li>
+<li>9.3.   <a href="#rfc.section.9.3">IRC numeric registry</a></li>
+<li>10.   <a href="#rfc.section.10">Security Considerations</a></li>
+<li>11.   <a href="#rfc.references">Normative References</a></li>
+<li>Appendix A.   <a href="#rfc.appendix.A">List of known RPL_ISUPPORT tokens</a></li>
+<li>A.1.   <a href="#rfc.appendix.A.1">CASEMAPPING</a></li>
+<li>A.2.   <a href="#rfc.appendix.A.2">CHARSET</a></li>
+<li>A.3.   <a href="#rfc.appendix.A.3">PREFIX</a></li>
+<li>A.4.   <a href="#rfc.appendix.A.4">CHANTYPES</a></li>
+<li>A.5.   <a href="#rfc.appendix.A.5">CHANMODES</a></li>
+<li>A.6.   <a href="#rfc.appendix.A.6">NETWORK</a></li>
+<li>A.7.   <a href="#rfc.appendix.A.7">MODES</a></li>
+<li>A.8.   <a href="#rfc.appendix.A.8">MAXCHANNELS</a></li>
+<li>A.9.   <a href="#rfc.appendix.A.9">CHANLIMIT</a></li>
+<li>A.10.   <a href="#rfc.appendix.A.10">NICKLEN</a></li>
+<li>A.11.   <a href="#rfc.appendix.A.11">MAXLIST</a></li>
+<li>A.12.   <a href="#rfc.appendix.A.12">EXCEPTS</a></li>
+<li>A.13.   <a href="#rfc.appendix.A.13">INVEX</a></li>
+<li>A.14.   <a href="#rfc.appendix.A.14">KNOCK</a></li>
+<li>A.15.   <a href="#rfc.appendix.A.15">STATUSMSG</a></li>
+<li>A.16.   <a href="#rfc.appendix.A.16">CALLERID</a></li>
+<li>A.17.   <a href="#rfc.appendix.A.17">CHANNELLEN</a></li>
+<li>A.18.   <a href="#rfc.appendix.A.18">TOPICLEN</a></li>
+<li>A.19.   <a href="#rfc.appendix.A.19">AWAYLEN</a></li>
+<li><a href="#rfc.authors">Author's Address</a></li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> Introduction</h1>
+<p id="rfc.section.1.p.1">Intro goes here</p>
+<h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> Requirements Language</h1>
+<p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.</p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#ProtocolStructure" id="ProtocolStructure">Protocol structure</a></h1>
+<h1 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1.</a> <a href="#CharacterEncoding" id="CharacterEncoding">Character encoding</a></h1>
+<p id="rfc.section.2.1.p.1">It is strongly RECOMMENDED that IRC servers and clients use the <a href="#RFC3629">UTF-8</a> <cite title="NONE">[RFC3629]</cite> character encoding throughout, however implementations MAY use an alterntive 8-bit character encoding for backwards compatibility with the <a href="#RFC1459">previous version</a> <cite title="NONE">[RFC1459]</cite> of the protocol.  </p>
+<p id="rfc.section.2.1.p.2">For historical reasons, the characters '{', '}', and '|' are considered to be the lower case equivalents of the characters '[', ']', and '\', respectively.  This is a critical issue when determining the equivalence of two nicknames.  </p>
+<p id="rfc.section.2.1.p.3">If the IRC server uses a character encoding other than UTF-8 or a casemapping other than the one specified in this section, it MUST include such information in the RPL_ISUPPORT (005) numeric sent on completion of client registration, as set out in <a href="#RPL_ISUPPORT">Section 3.2</a>.  </p>
+<h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> <a href="#Messages" id="Messages">Messages</a></h1>
+<p id="rfc.section.2.2.p.1">Servers and clients send eachother messages which may or may not generate a reply; client to server and server to server communication is essentially asynchronous in nature.  </p>
+<p id="rfc.section.2.2.p.2">Each IRC message may consist of up to four main parts: tags (optional), the prefix (optional), the command, and the command parameters (of which there may be up to 15).  </p>
+<h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> <a href="#MessageTags" id="MessageTags">Tags</a></h1>
+<p id="rfc.section.2.2.1.p.1">Tags are addtional and optional metadata included with relevant messages.  </p>
+<p id="rfc.section.2.2.1.p.2">Every message tag is enabled by a capability (as outlined in <a href="#CapabilityNegotiation">Section 3.1</a>). The same capability may be used for several tags if these tags are intended to be used together.  </p>
+<p id="rfc.section.2.2.1.p.3">Each tag may have its own rules about how it can be used: from client to server only, from server to client only, or in both directions.  </p>
+<p id="rfc.section.2.2.1.p.4">The server MUST NOT add a tag to a message if the client did not request the capability which enables the tag. The server MUST NOT add a tag to a message before replying to client's CAP REQ with CAP ACK.  If the client requested a capability which enables one or more message tags the client MUST be able to parse the message tags syntax.  </p>
+<p id="rfc.section.2.2.1.p.5">Similarly, the client MUST NOT add a tag to messages before server replies to client's CAP REQ with CAP ACK.  If the server accepted the capability request with CAP ACK, the server MUST be able to parse the tags syntax.  </p>
+<p id="rfc.section.2.2.1.p.6">Both clients and servers MAY parse the tags without any capabilities being enabled on the connection. They SHOULD ignore the tags of capabilities which are not enabled.  </p>
+<p id="rfc.section.2.2.1.p.7">The rules for naming and registering tags are detailed in <a href="#TagRegistry">Section 9.2</a> </p>
+<h1 id="rfc.section.2.2.2"><a href="#rfc.section.2.2.2">2.2.2.</a> <a href="#MessagePrefix" id="MessagePrefix">Prefix</a></h1>
+<p id="rfc.section.2.2.2.p.1">The prefix is used by servers to indicate the true origin of the message.  If the prefix is missing from the message, it is assumed to have originated from the connection from which it was received.  Clients SHOULD NOT use prefix when sending a message from themselves; if they use a prefix, the only valid prefix is the registered nickname associated with the client.  If the source identified by the prefix cannot be found from the server's internal database, or if the source is registered from a different link than from which the message arrived, the server MUST ignore the message silently.  </p>
+<h1 id="rfc.section.2.2.3"><a href="#rfc.section.2.2.3">2.2.3.</a> <a href="#MessageCommand" id="MessageCommand">Command</a></h1>
+<p id="rfc.section.2.2.3.p.1">The command must either be a valid IRC command or a three-digit number represented as text.  </p>
+<h1 id="rfc.section.2.3"><a href="#rfc.section.2.3">2.3.</a> <a href="#WireFormats" id="WireFormats">Wire format</a></h1>
+<p id="rfc.section.2.3.p.1">IRC messages are extracted from a contiguous stream of octets. A pair of characters, CR (0x13) and LF (0x10), act as message separators. Empty messages are silently ignored, which permits use of the sequence CR-LF between messages.  </p>
+<p id="rfc.section.2.3.p.2">The tags, prefix, command, and all parameters are separated by one (or more) UTF-8 space character(s) (0x20).  </p>
+<p id="rfc.section.2.3.p.3">The presense of tags is indicated with a single leading at character ('@', 0x40), which MUST be the first character of the message itself. There MUST NOT be any whitespace between the at character and the list of tags.  </p>
+<p id="rfc.section.2.3.p.4">The presence of a prefix is indicated with a single leading colon character (':', 0x3b). If there are no tags it MUST be the first character of the message itself. There MUST NOT be any whitespace between the colon character and the prefix.  </p>
+<p id="rfc.section.2.3.p.5">IRC messages shall not exceed 1024 bytes in length, counting all characters including the trailing CR-LF.  There are a maximum of 512 bytes allocated for message tags, including the leading '@' and trailing space. There are 510 bytes maximum allowed for the command and its parameters.  There is no provision for continuation message lines.  </p>
+<h1 id="rfc.section.2.3.1"><a href="#rfc.section.2.3.1">2.3.1.</a> <a href="#abnf" id="abnf">Wire format in 'pseudo' BNF</a></h1>
+<p id="rfc.section.2.3.1.p.1">The extracted message is parsed into the components &lt;tags&gt;, &lt;prefix&gt;, &lt;command&gt;, and a list of parameters matched either by &lt;middle&gt; or &lt;trailing&gt; components.  </p>
+<p id="rfc.section.2.3.1.p.2">The BNF representation for this is: </p>
+<pre>
+&lt;message&gt;  = ['@' &lt;tags&gt; &lt;SP&gt; ] [':' &lt;prefix&gt; &lt;SP&gt; ] &lt;command&gt; &lt;params&gt; &lt;crlf&gt;
+&lt;tags&gt;     = &lt;tag&gt; *[';' &lt;tag&gt;]
+&lt;tag&gt;      = &lt;key&gt; ['=' &lt;value&gt;]
+&lt;key&gt;      = [ &lt;vendor&gt; '/' ] &lt;sequence of letters, digits, hyphens (`-`)&gt;
+&lt;value&gt;    = &lt;sequence of any characters except NUL, BELL, CR, LF, semicolon (`;`) and SPACE&gt;
+&lt;vendor&gt;   = &lt;host&gt;
+&lt;prefix&gt;   = &lt;servername&gt; | &lt;nick&gt; [ '!' &lt;user&gt; ] [ '@' &lt;host&gt; ]
+&lt;command&gt;  = &lt;letter&gt; { &lt;letter&gt; } | &lt;number&gt; &lt;number&gt; &lt;number&gt;
+&lt;SP&gt;       = ' ' { ' ' }
+&lt;params&gt;   = &lt;SPACE&gt; [ ':' &lt;trailing&gt; / &lt;middle&gt; &lt;params&gt; ]
+&lt;middle&gt;   = &lt;Any *non-empty* sequence of octets not including SPACE or NUL or CR or LF, the first of which may not be ':'&gt;
+&lt;trailing&gt; = &lt;Any, possibly *empty*, sequence of octets not including NUL or CR or LF&gt;
+&lt;crlf&gt;     = CR LF
+            </pre>
+<p id="rfc.section.2.3.1.p.3">NOTES: </p>
+
+<ol>
+  <li>&lt;SPACE&gt; is consists only of SPACE character(s) (0x20). Specially notice that TABULATION, and all other control characters are considered NON-WHITE-SPACE.  </li>
+  <li>After extracting the parameter list, all parameters are equal, whether matched by &lt;middle&gt; or &lt;trailing&gt;. &lt;Trailing&gt; is just a syntactic trick to allow SPACE within parameter.  </li>
+  <li>The NUL character is not special in message framing but as it would cause extra complexities in normal C string handling it is not allowed within messages.  </li>
+  <li>The last parameter may be an empty string.  </li>
+  <li>Use of the extended prefix (['!' &lt;user&gt; ] ['@' &lt;host&gt; ]) must not be used in server to server communications and is only intended for server to client messages in order to provide clients with more useful information about who a message is from without the need for additional queries.  </li>
+</ol>
+
+<p> </p>
+<p id="rfc.section.2.3.1.p.4">Most protocol messages specify additional semantics and syntax for the extracted parameter strings dictated by their position in the list.  For example, many server commands will assume that the first parameter after the command is the list of targets.  </p>
+<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#registration" id="registration">Connection registration</a></h1>
+<p id="rfc.section.3.p.1">Immediately upon establishing a connection the client must attempt registration without waiting for any banner message from the server.  </p>
+<p id="rfc.section.3.p.2">Until registration is complete, only a small subset of commands may be accepted by the server.  </p>
+<p id="rfc.section.3.p.3">The recommended order of commands during registration is as follows: </p>
+
+<ol>
+  <li>STARTTLS</li>
+  <li>PASS</li>
+  <li>CAP</li>
+  <li>NICK</li>
+  <li>USER</li>
+</ol>
+
+<p> </p>
+<p id="rfc.section.3.p.4">If the transport layer is not secured by TLS it is RECOMMENDED that the client attempt to opportunistically enable encryption by sending the STARTTLS command before sending any other messages.  </p>
+<p id="rfc.section.3.p.5">The PASS command (see <a href="#PASS">Section 4.19</a>) is not required for the connection to be registered, but if included it MUST precede the latter of the NICK and USER commands.  </p>
+<p id="rfc.section.3.p.6">If the server supports capaibility negotiation the CAP command (see <a href="#CAP">Section 4.2</a>) suspends the registration process and immediately starts the capability negotiation (see <a href="#CapabilityNegotiation">Section 3.1</a>) process.  </p>
+<p id="rfc.section.3.p.7">The NICK and USER commands (see <a href="#NICK">Section 4.15</a> and <a href="#USER">Section 4.30</a>, respectively) are used to identify the user's nickname, username and "real name". Unless the registration process is suspended by a STARTTLS or CAP negotiation, these commands will end the registration process.  </p>
+<p id="rfc.section.3.p.8">Upon successful completion of the registration process, the server MUST send the RPL_WELCOME (001) and RPL_ISUPPORT (005) numerics.  The server SHOULD also send the MOTD (Message of the Day), if one exists, and MAY send other numerics.  </p>
+<p id="rfc.section.3.p.9">The RPL_ISUPPORT (005) numeric contains significant information for clients and is covered in more detail in <a href="#RPL_ISUPPORT">Section 3.2</a>.  </p>
+<h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#CapabilityNegotiation" id="CapabilityNegotiation">Capability negotiation</a></h1>
+<p id="rfc.section.3.1.p.1">IRC is an asynchronous protocol, which means that IRC clients may issue additional IRC commands while previous commands are being processed.  Additionally, there is no guarantee of a specific kind of banner being issued upon connection.  Some servers also do not complain about unknown commands during registration, which means that a client cannot reliably do passive implementation discovery at registration time.  </p>
+<p id="rfc.section.3.1.p.2">The solution to these problems is to extend the registration process with actual capability negotiation.  If the server supports capability negotiation, the registration process will be suspended until negotiation is completed.  If the server does not support capability negotiation, then registration will complete immediately, and the client will not use any IRCv3 capabilities.  </p>
+<p id="rfc.section.3.1.p.3">Capability negotiation is started by the client issuing a CAP LS command.  Negotiation is then performed with the CAP REQ, CAP ACK, and CAP NAK commands, and ended with the CAP END command (See <a href="#CAP">Section 4.2</a>).  </p>
+<p id="rfc.section.3.1.p.4">Once capability negotiation has ended, the registration process shall resume.  </p>
+<p id="rfc.section.3.1.p.5">The rules for naming and registering capabilities are detailed in <a href="#CapabilityRegistry">Section 9.1</a> </p>
+<h1 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a> <a href="#RPL_ISUPPORT" id="RPL_ISUPPORT">RPL_ISUPPORT</a></h1>
+<p id="rfc.section.3.2.p.1">Once client registration is complete, the server MUST send at least one RPL_ISUPPORT (005) numeric to the client. The server MAY send more than one RPL_ISUPPORT numeric and it is RECOMMENDED that consecutive RPL_ISUPPORT numerics are sent adjacent to each other.  </p>
+<p id="rfc.section.3.2.p.2">Each parameter of this numeric is a token and optional value in the form of TOKEN[=VALUE]. The tokens MUST be sent in upper-case but, unless otherwise specified, the value MUST be treated as case-sentitive.  </p>
+<p id="rfc.section.3.2.p.3">[TODO: properly flesh out the description on 005 tokens] </p>
+<p id="rfc.section.3.2.p.4">A list of known RPL_ISUPPORT tokens is given in <a href="#ISUPPORT-tokens">Appendix A</a> </p>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#command-details" id="command-details">Command details</a></h1>
+<p id="rfc.section.4.p.1">The server to which a client is connected is required to parse the complete message, returning any appropriate errors.  If the server encounters a fatal error while parsing a message, an error must be sent back to the client and the parsing terminated.  A fatal error may be considered to be incorrect command, a destination which is otherwise unknown to the server (server, nick or channel names fit this category), not enough parameters or incorrect privileges.  </p>
+<p id="rfc.section.4.p.2">If a full set of parameters is presented, then each must be checked for validity and appropriate responses sent back to the client.  In the case of messages which use parameter lists using the comma as an item separator, a reply MUST be sent for each item.  </p>
+<p id="rfc.section.4.p.3">In the examples below, some messages appear using the full format:<br/> :Name COMMAND parameter list </p>
+<p id="rfc.section.4.p.4">Such examples represent a message from "Name" in transit between servers, where it is essential to include the name of the original sender of the message so remote servers may send back a reply along the correct path.  </p>
+<h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> <a href="#AWAY" id="AWAY">AWAY command</a></h1>
+<p id="rfc.section.4.1.p.1">Command: AWAY<br/> Parameters: [message] </p>
+<p id="rfc.section.4.1.p.2">With the AWAY message, clients can set an automatic reply string for any PRIVMSG commands directed at them (not to a channel they are on).  The automatic reply is sent by the server to client sending the PRIVMSG command.  The only replying server is the one to which the sending client is connected to.  </p>
+<p id="rfc.section.4.1.p.3">The AWAY message is used either with one parameter (to set an AWAY message) or with no parameters (to remove the AWAY message).  </p>
+<p id="rfc.section.4.1.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_UNAWAY</li>
+  <li>RPL_NOWAWAY</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.1.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>AWAY :Gone to lunch.  Back in 5<br/> ; set away message to "Gone to lunch. Back in 5".  </li>
+  <li>:WiZ AWAY<br/> ; unmark WiZ as being away.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> <a href="#CAP" id="CAP">CAP command</a></h1>
+<p id="rfc.section.4.2.p.1">The CAP message takes a single required subcommand, optionally followed by a single parameter of space-seperated capability identifiers.  Each capability in the list MAY be preceded by a capability modifier (see <a href="#CapabilityModifiers">Section 4.2.1</a>).  </p>
+<p id="rfc.section.4.2.p.2">The subcommands for CAP are: LS, LIST, REQ, ACK, NAK, CLEAR, and END (See <a href="#CAPSubcommands">Section 4.2.2</a>).  </p>
+<p id="rfc.section.4.2.p.3">The LS, LIST, REQ, ACK and NAK subcommands MAY be followed by a single parameter containing a space-seperated list of capabilities.  If more than one capability is named, the designated sentinel (":") for a multi-parameter argument MUST be present.  </p>
+<p id="rfc.section.4.2.p.4">If a client sends a subcommand which is not in the list above or otherwise issues an invalid command, then numeric 410 (ERR_INVALIDCAPCMD) MUST be sent.  The first parameter after the client identifier (usually nickname) MUST be the commandname; the second parameter SHOULD be a human-readable description of the error.  </p>
+<p id="rfc.section.4.2.p.5">Replies from the server must contain the client identifier name or an asterisk ("*") if one is not yet available.  </p>
+<h1 id="rfc.section.4.2.1"><a href="#rfc.section.4.2.1">4.2.1.</a> <a href="#CapabilityModifiers" id="CapabilityModifiers">Capability modifiers</a></h1>
+<p id="rfc.section.4.2.1.p.1">There are three capability modifiers specified by this document.  If a capability modifier is to be used, it MUST directly procede the capability identifier.  </p>
+<p id="rfc.section.4.2.1.p.2">The capability modifiers are: </p>
+
+<ul>
+  <li>"-" modifier (disable): this modifier indicates that the capability is being disabled.  </li>
+  <li>"~" modifier (ack): this modifier indicates the client must acknowledge the capability using an ACK subcommand.  </li>
+  <li>"=" modifier (sticky): this modifier indicates that the specified capability may not be disabled.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.2.2"><a href="#rfc.section.4.2.2">4.2.2.</a> <a href="#CAPSubcommands" id="CAPSubcommands">CAP subcommands</a></h1>
+<h1 id="rfc.section.4.2.2.1"><a href="#rfc.section.4.2.2.1">4.2.2.1.</a> <a href="#CAP-LS" id="CAP-LS">CAP LS subcommand</a></h1>
+<p id="rfc.section.4.2.2.1.p.1">The LS subcommand is used to list the capabilities supported by the server.  The client should send an LS subcommand with no other arguments to solicit a list of all capabilities.  </p>
+<p id="rfc.section.4.2.2.1.p.2">If a client issues an LS subcommand, registration must be suspended until an END subcommand is received.  </p>
+<p id="rfc.section.4.2.2.1.p.3">Example: </p>
+
+<ul class="empty">
+  <li>
+    <ul class="empty">
+      <li>Client: CAP LS </li>
+      <li>Server: CAP * LS :multi-prefix sasl </li>
+    </ul>
+    <p> </p>
+  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.2.2.2"><a href="#rfc.section.4.2.2.2">4.2.2.2.</a> <a href="#CAP-LIST" id="CAP-LIST">CAP LIST subcommand</a></h1>
+<p id="rfc.section.4.2.2.2.p.1">The LIST subcommand is used to list the capabilities associated with the active connection.  The client should send a LIST subcommand with no other arguments to solicit a list of active capabilities.  </p>
+<p id="rfc.section.4.2.2.2.p.2">If no capabilities are active, an empty parameter must be sent.  </p>
+<p id="rfc.section.4.2.2.2.p.3">Example: </p>
+
+<ul class="empty">
+  <li>
+    <ul class="empty">
+      <li>Client: CAP LIST </li>
+      <li>Server: CAP * LIST :multi-prefix </li>
+    </ul>
+    <p> </p>
+  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.2.2.3"><a href="#rfc.section.4.2.2.3">4.2.2.3.</a> <a href="#CAP-REQ" id="CAP-REQ">CAP REQ subcommand</a></h1>
+<p id="rfc.section.4.2.2.3.p.1">The REQ subcommand is used to request a change in capabilities associated with the active connection. It's sole parameter must be a list of space-separated capability identifiers. Each capability identifier may be prefixed with a dash (-) to designate that the capability should be disabled.  </p>
+<p id="rfc.section.4.2.2.3.p.2">The capability identifier set must be accepted as a whole, or rejected entirely.  </p>
+<p id="rfc.section.4.2.2.3.p.3">If a client issues a REQ subcommand, registration must be suspended until an END subcommand is received.  </p>
+<p id="rfc.section.4.2.2.3.p.4">Example: </p>
+
+<ul class="empty">
+  <li>
+    <ul class="empty">
+      <li>Client: CAP REQ :multi-prefix sasl </li>
+      <li>Server: CAP * ACK :multi-prefix sasl </li>
+    </ul>
+    <p> </p>
+  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.2.2.4"><a href="#rfc.section.4.2.2.4">4.2.2.4.</a> <a href="#CAP-ACK" id="CAP-ACK">CAP ACK subcommand</a></h1>
+<p id="rfc.section.4.2.2.4.p.1">The ACK subcommand has three uses: </p>
+
+<ul>
+  <li>the server sends it to acknowledge a REQ subcommand; </li>
+  <li>the server sends it to acknowledge a CLEAR subcommand; </li>
+  <li>the client sends it to acknowledge capabilities which require client-side acknowledgement.  </li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.2.2.4.p.2">If an ACK reply originating from the server is spread across multiple lines, a client MUST NOT change capabilities until the last ACK of the set is received.  Equally, a server MUST NOT change the capabilities of the client until the last ACK of the set has been sent.  </p>
+<p id="rfc.section.4.2.2.4.p.3">In the first usage, acknowledging a REQ subcommand, the ACK subcommand has a single parameter consisting of a space separated list of capability names, which may optionally be preceded with one or more modifiers (see <a href="#CapabilityModifiers">Section 4.2.1</a> for details of capability modifiers).  </p>
+<p id="rfc.section.4.2.2.4.p.4">The second usage, acknowledging a CLEAR subcommand, is similar to the first usage.  When a CLEAR subcommand is issued, all non-"sticky" capabilities are disabled, and a set of ACK subcommands will be generated by the server with the disable modifier preceding each capability.  </p>
+<p id="rfc.section.4.2.2.4.p.5">The third usage is when, in the preceding two cases, some capability names have been preceded with the ack modifier.  ACK in this case is used to fully enable or disable the capability.  Clients MUST NOT issue an ACK subcommand for any capability not marked with the ack modifier in a server-generated ACK subcommand.  </p>
+<h1 id="rfc.section.4.2.2.5"><a href="#rfc.section.4.2.2.5">4.2.2.5.</a> <a href="#CAP-NAK" id="CAP-NAK">CAP NAK subcommand</a></h1>
+<p id="rfc.section.4.2.2.5.p.1">The NAK subcommand designates that the requested capability change was rejected.  The server MUST NOT make any change to any capabilities if it replies with a NAK subcommand.  </p>
+<p id="rfc.section.4.2.2.5.p.2">The argument of the NAK subcommand MUST consist of at least the first 100 characters of the capability list in the REQ subcommand which triggered the NAK.  </p>
+<h1 id="rfc.section.4.2.2.6"><a href="#rfc.section.4.2.2.6">4.2.2.6.</a> <a href="#CAP-CLEAR" id="CAP-CLEAR">CAP CLEAR subcommand</a></h1>
+<p id="rfc.section.4.2.2.6.p.1">The CLEAR subcommand requests that the server clear the capability set for the client.  The server MUST respond with a set of ACK subcommands indicating the capabilities being deactivated.  </p>
+<h1 id="rfc.section.4.2.2.7"><a href="#rfc.section.4.2.2.7">4.2.2.7.</a> <a href="#CAP-END" id="CAP-END">CAP END subcommand</a></h1>
+<p id="rfc.section.4.2.2.7.p.1">The END subcommand signals to the server that capability negotiation is complete and requests that the server continue with client registration.  If the client is already registered, this command MUST be ignored by the server.  </p>
+<p id="rfc.section.4.2.2.7.p.2">Clients that support capabilities but do not wish to enter negotiation SHOULD send CAP END upon connection to the server.  </p>
+<h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> <a href="#CONNECT" id="CONNECT">CONNECT command</a></h1>
+<p id="rfc.section.4.3.p.1">Command: CONNECT<br/> Parameters: &lt;target server&gt; [&lt;port&gt; [&lt;remote server&gt;]] </p>
+<p id="rfc.section.4.3.p.2">The CONNECT command can be used to force a server to try to establish a new connection to another server immediately.  CONNECT is a privileged command and is to be available only to IRC Operators.  If a remote server is given then the CONNECT attempt is made by that server to &lt;target server&gt; and &lt;port&gt;.  </p>
+<p id="rfc.section.4.3.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOPRIVILEGES</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.3.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>CONNECT tolsun.oulu.fi<br/> ; Attempt to connect a server totolsun.oulu.fi </li>
+  <li>:WiZ CONNECT eff.org 6667 csd.bu.edu<br/> ; CONNECT attempt by WiZ to get servers eff.org and csd.bu.edu connected on port 6667.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> <a href="#ERROR" id="ERROR">ERROR command</a></h1>
+<p id="rfc.section.4.4.p.1">Command: ERROR<br/> Parameters: :&lt;error message&gt; </p>
+<p id="rfc.section.4.4.p.2">The ERROR command is for use by servers when reporting a serious or fatal error to its operators.  It may also be sent from one server to another but must not be accepted from any normal unknown clients.  </p>
+<p id="rfc.section.4.4.p.3">An ERROR message is for use for reporting errors which occur with a server-to-server link only.  An ERROR message is sent to the server at the other end (which sends it to all of its connected operators) and to all operators currently connected.  It is not to be passed onto any other servers by a server if it is received from a server.  </p>
+<p id="rfc.section.4.4.p.4">When a server sends a received ERROR message to its operators, the message should be encapsulated inside a NOTICE message, indicating that the client was not responsible for the error.  </p>
+<p id="rfc.section.4.4.p.5">Numeric Replies:<br/> None.  </p>
+<p id="rfc.section.4.4.p.6">Examples: </p>
+
+<ul class="empty">
+  <li>ERROR :Server *.fi already exists<br/> ; ERROR message to the other server which caused this error.  </li>
+  <li>NOTICE WiZ :ERROR from csd.bu.edu -- Server *.fi already exists<br/> ; Same ERROR message as above but sent to user WiZ on the other server.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.5"><a href="#rfc.section.4.5">4.5.</a> <a href="#INFO" id="INFO">INFO command</a></h1>
+<p id="rfc.section.4.5.p.1">Command: INFO<br/> Parameters: [&lt;server&gt;] </p>
+<p id="rfc.section.4.5.p.2">The INFO command is required to return information which describes the server: its version, when it was compiled, the patchlevel, when it was started, and any other miscellaneous information which may be considered to be relevant.  </p>
+<p id="rfc.section.4.5.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>RPL_INFO</li>
+  <li>RPL_ENDOFINFO</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.5.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>INFO csd.bu.edu<br/> ; request an INFO reply from csd.bu.edu </li>
+  <li>:Avalon INFO *.fi<br/> ; INFO request from Avalon for first server found to match *.fi.  </li>
+  <li>INFO Angel<br/> ; request info from the server that Angel is connected to.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.6"><a href="#rfc.section.4.6">4.6.</a> <a href="#INVITE" id="INVITE">INVITE command</a></h1>
+<p id="rfc.section.4.6.p.1">Command: INVITE<br/> Parameters: &lt;nickname&gt; &lt;channel&gt; </p>
+<p id="rfc.section.4.6.p.2">he INVITE message is used to invite users to a channel.  The parameter &lt;nickname&gt; is the nickname of the person to be invited to the target channel &lt;channel&gt;.  There is no requirement that the channel the target user is being invited to must exist or be a valid channel.  To invite a user to a channel which is invite only (MODE +i), the client sending the invite must be recognised as being a channel operator on the given channel.  </p>
+<p id="rfc.section.4.6.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_INVITING</li>
+  <li>RPL_AWAY</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>ERR_NOTONCHANNEL</li>
+  <li>ERR_USERONCHANNEL</li>
+  <li>ERR_CHANOPRIVSNEEDED</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.6.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>:Angel INVITE Wiz #Dust<br/> ; User Angel inviting WiZ to channel #Dust </li>
+  <li>INVITE Wiz #Twilight_Zone<br/> ; Command to invite WiZ to #Twilight_zone </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.7"><a href="#rfc.section.4.7">4.7.</a> <a href="#ISON" id="ISON">ISON command</a></h1>
+<p id="rfc.section.4.7.p.1">Command: ISON<br/> Parameters: &lt;nickname&gt;{&lt;space&gt;&lt;nickname&gt;} </p>
+<p id="rfc.section.4.7.p.2">The ISON command was implemented to provide a quick and efficient means to get a response about whether a given nickname was currently on IRC.  ISON only takes one (1) parameter: a space-separated list of nicks.  For  each  nickname in the list that is present, the server adds that to its reply string.  Thus the reply string may return empty (none of the given nicks are present), an exact copy of the parameter string (all of them present) or as any other subset of the set of nicks given in  the parameter.  The only limit on the number of nicks that may be checked is that the combined length must not be too large as to cause the server to chop it off so it fits in 512 characters.  </p>
+<p id="rfc.section.4.7.p.3">ISON is only be processed by the server local to the client sending the command and thus not passed onto other servers for further processing.  </p>
+<p id="rfc.section.4.7.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>RPL_ISON</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.7.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>ISON phone trillian WiZ jarlek Avalon Angel Monstah<br/> ; Sample ISON request for 7 nicks.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.8"><a href="#rfc.section.4.8">4.8.</a> <a href="#JOIN" id="JOIN">JOIN command</a></h1>
+<p id="rfc.section.4.8.p.1">Command: JOIN <br/> Parameters: &lt;channel&gt;{,&lt;channel&gt;} [&lt;key&gt;{,&lt;key&gt;}] </p>
+<p id="rfc.section.4.8.p.2">The JOIN command is used by client to start listening a specific channel.  Whether or not a client is allowed to join a channel is checked only by the server the client is connected to; all other servers automatically add the user to the channel when it is received from other servers.  The conditions which affect this are as follows: </p>
+
+<ol>
+  <li>the user must be invited if the channel is invite-only; </li>
+  <li>the user's nick/username/hostname must not match any active bans; </li>
+  <li>the correct key (password) must be given if it is set.  </li>
+</ol>
+
+<p> </p>
+<p id="rfc.section.4.8.p.3">These are discussed in more detail under the MODE command (see <a href="#MODE">Section 4.13</a> for more details).  </p>
+<p id="rfc.section.4.8.p.4">Once a user has joined a channel, they receive notice about all commands their server receives which affect the channel.  This includes MODE, KICK, PART, QUIT and of course PRIVMSG/NOTICE.  The JOIN command needs to be broadcast to all servers so that each server knows where to find the users who are on the channel.  This allows optimal delivery of PRIVMSG/NOTICE messages to the channel.  </p>
+<p id="rfc.section.4.8.p.5">If a JOIN is successful, the user is then sent the channel's topic (using RPL_TOPIC) and the list of users who are on the channel (using RPL_NAMREPLY), which must include the user joining.  </p>
+<p id="rfc.section.4.8.p.6">Numeric replies: </p>
+
+<ul class="empty">
+  <li>RPL_TOPIC</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_BANNEDFROMCHAN</li>
+  <li>ERR_INVITEONLYCHAN</li>
+  <li>ERR_BADCHANNELKEY</li>
+  <li>ERR_CHANNELISFULL</li>
+  <li>ERR_BADCHANMASK</li>
+  <li>ERR_NOSUCHCHANNEL</li>
+  <li>ERR_TOOMANYCHANNELS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.8.p.7">Examples: </p>
+
+<ul class="empty">
+  <li>JOIN #foobar<br/> ; join channel #foobar.  </li>
+  <li>JOIN &amp;foo fubar<br/> ; join channel &amp;foo using key "fubar".  </li>
+  <li>JOIN #foo,&amp;bar fubar<br/> ; join channel #foo using key "fubar" and &amp;bar using no key.  </li>
+  <li>JOIN #foo,#bar fubar,foobar<br/> ; join channel #foo using key "fubar" and channel #bar using key "foobar".  </li>
+  <li>JOIN #foo,#bar<br/> ; join channels #foo and #bar.  </li>
+  <li>:WiZ JOIN #Twilight_zone<br/> ; JOIN message from WiZ </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.9"><a href="#rfc.section.4.9">4.9.</a> <a href="#KICK" id="KICK">KICK command</a></h1>
+<p id="rfc.section.4.9.p.1">Command: KICK<br/> Parameters: &lt;channel&gt;{,&lt;channel&gt;} &lt;user&gt;{,&lt;user&gt;} [&lt;comment&gt;] </p>
+<p id="rfc.section.4.9.p.2">The KICK command can be used to forcibly remove a user from a channel.  It 'kicks them out' of the channel (forced PART).  </p>
+<p id="rfc.section.4.9.p.3">Only a channel operator may kick another user out of a channel.  Each server that receives a KICK message checks that it is valid (ie the sender is actually a channel operator) before removing the victim from the channel.  </p>
+<p id="rfc.section.4.9.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOSUCHCHANNEL</li>
+  <li>ERR_BADCHANMASK</li>
+  <li>ERR_CHANOPRIVSNEEDED</li>
+  <li>ERR_NOTONCHANNEL</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.9.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>KICK &amp;Melbourne Matthew ; Kick Matthew from &amp;Melbourne </li>
+  <li>KICK #Finnish John :Speaking English ; Kick John from #Finnish using "Speaking English" as the reason (comment).  </li>
+  <li>:WiZ KICK #Finnish John ; KICK message from WiZ to remove John from channel #Finnish </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.10"><a href="#rfc.section.4.10">4.10.</a> <a href="#KILL" id="KILL">KILL command</a></h1>
+<p id="rfc.section.4.10.p.1">Command: KILL<br/> Parameters: &lt;nickname&gt; &lt;comment&gt; </p>
+<p id="rfc.section.4.10.p.2">The KILL message is used to cause a client-server connection to be closed by the server which has the actual connection.  KILL is used by servers when they encounter a duplicate entry in the list of valid nicknames and is used to remove both entries.  It is also available to operators.  </p>
+<p id="rfc.section.4.10.p.3">Clients which have automatic reconnect algorithms effectively make this command useless since the disconnection is only brief.  It does however break the flow of data and can be used to stop large amounts of being abused, any user may elect to receive KILL messages generated for others to keep an 'eye' on would be trouble spots.  </p>
+<p id="rfc.section.4.10.p.4">In an arena where nicknames are required to be globally unique at all times, KILL messages are sent whenever 'duplicates' are detected (that is an attempt to register two users with the same nickname) in the hope that both of them will disappear and only 1 reappear.  </p>
+<p id="rfc.section.4.10.p.5">The comment given must reflect the actual reason for the KILL.  For server-generated KILLs it usually is made up of details concerning the origins of the two conflicting nicknames.  For users it is left up to them to provide an adequate reason to satisfy others who see it.  To prevent/discourage fake KILLs from being generated to hide the identify of the KILLer, the comment also shows a 'kill-path' which is updated by each server it passes through, each prepending its name to the path.  </p>
+<p id="rfc.section.4.10.p.6">NOTE:<br/> It is recommended that only Operators be allowed to kill other users with KILL message.  In an ideal world not even operators would need to do this and it would be left to servers to deal with.  </p>
+<p id="rfc.section.4.10.p.7">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOPRIVILEGES</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>ERR_CANTKILLSERVER</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.10.p.8">Examples: </p>
+
+<ul class="empty">
+  <li>KILL David (csd.bu.edu &lt;- tolsun.oulu.fi)<br/> ; Nickname collision between csd.bu.edu and tolson.oulu.fi </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.11"><a href="#rfc.section.4.11">4.11.</a> <a href="#LINKS" id="LINKS">LINKS command</a></h1>
+<p id="rfc.section.4.11.p.1">Command: LINKS<br/> Parameters: [&lt;remote server&gt; [&lt;server mask&gt;]] </p>
+<p id="rfc.section.4.11.p.2">With LINKS, a user can list all servers which are known by the server answering the query.  The returned list of servers must match the mask, or if no mask is given, the full list is returned.  </p>
+<p id="rfc.section.4.11.p.3">If &lt;remote server&gt; is given in addition to &lt;server mask&gt;, the LINKS command is forwarded to the first server found that matches that name (if any), and that server is then required to answer the query.  </p>
+<p id="rfc.section.4.11.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>RPL_LINKS</li>
+  <li>RPL_ENDOFLINKS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.11.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>LINKS *.au ; list all servers which have a name that matches *.au;<br/> </li>
+  <li>:WiZ LINKS *.bu.edu *.edu<br/> ; LINKS message from WiZ to the first server matching *.edu for a list of servers matching *.bu.edu.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.12"><a href="#rfc.section.4.12">4.12.</a> <a href="#LIST" id="LIST">LIST command</a></h1>
+<p id="rfc.section.4.12.p.1">Command: LIST<br/> Parameters: [&lt;channel&gt;{,&lt;channel&gt;}] </p>
+<p id="rfc.section.4.12.p.2">The list message is used to list channels and their topics.  If  the &lt;channel&gt;  parameter  is  used,  only  the  status  of  that  channel is displayed.  Private  channels  are  listed  (without  their topics)  as channel "Prv" unless the client generating the query is actually on that channel.  Likewise, secret channels are not listed at all unless the client is a member of the channel in question.  </p>
+<p id="rfc.section.4.12.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_LISTSTART</li>
+  <li>RPL_LIST</li>
+  <li>RPL_LISTEND</li>
+  <li>ERR_NOSUCHSERVER</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.12.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>LIST<br/> ; List all channels.  </li>
+  <li>LIST #twilight_zone,#42<br/> ; List channels #twilight_zone and #42 </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.13"><a href="#rfc.section.4.13">4.13.</a> <a href="#MODE" id="MODE">MODE command</a></h1>
+<p id="rfc.section.4.13.p.1">Command: MODE </p>
+<p id="rfc.section.4.13.p.2">The MODE command is a dual-purpose command in IRC.  It allows both usernames and channels to have their mode changed.  </p>
+<p id="rfc.section.4.13.p.3">When parsing MODE messages, it is recommended that the entire message be parsed first and then the changes which resulted then passed on.  </p>
+<h1 id="rfc.section.4.13.1"><a href="#rfc.section.4.13.1">4.13.1.</a> <a href="#ChannelModes" id="ChannelModes">Channel modes</a></h1>
+<p id="rfc.section.4.13.1.p.1">Parameters: &lt;channel&gt; {[+|-]|&lt;mode&gt;} {[&lt;mode parameter&gt;]} </p>
+<p id="rfc.section.4.13.1.p.2">The MODE command is provided so that channel operators may change the characteristics of 'their' channel.  It is also REQUIRED that servers be able to change channel modes so that channel operators may be created.  </p>
+<p id="rfc.section.4.13.1.p.3">The various standard modes available for channels are as follows: </p>
+
+<ul class="empty">
+  <li>o - give/take channel operator privileges;</li>
+  <li>p - private channel flag;</li>
+  <li>s - secret channel flag;</li>
+  <li>i - invite-only channel flag;</li>
+  <li>t - topic settable by channel operator only flag;</li>
+  <li>n - no messages to channel from clients on the outside;</li>
+  <li>m - moderated channel;</li>
+  <li>l - set the user limit to channel;</li>
+  <li>b - set a ban mask to keep users out;</li>
+  <li>v - give/take the ability to speak on a moderated channel;</li>
+  <li>k - set a channel key (password).</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.13.1.p.4">Servers MAY offer additional channel modes in addition to those listed here.  Servers MUST list the channel modes they support in the RPL_ISUPPORT numeric sent after client registration (see <a href="#RPL_ISUPPORT">Section 3.2</a> for more details).  </p>
+<p id="rfc.section.4.13.1.p.5">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_CHANNELMODEIS</li>
+  <li>RPL_BANLIST</li>
+  <li>RPL_ENDOFBANLIST</li>
+  <li>ERR_KEYSET</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_CHANOPRIVSNEEDED</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>ERR_NOTONCHANNEL</li>
+  <li>ERR_UNKNOWNMODE</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.13.1.p.6">Examples: </p>
+
+<ul class="empty">
+  <li>MODE #Finnish +im<br/> ; Makes #Finnish channel moderated and 'invite-only'.  </li>
+  <li>MODE #Finnish +o Kilroy<br/> ; Gives 'chanop' privileges to Kilroy on channel #Finnish.  </li>
+  <li>MODE #Finnish +v Wiz<br/> ; Allow WiZ to speak on #Finnish.  </li>
+  <li>MODE #Fins -s<br/> ; Removes 'secret' flag from channel #Fins.  </li>
+  <li>MODE #42 +k oulu<br/> ; Set the channel key to "oulu".  </li>
+  <li>MODE #eu-opers +l 10<br/> ; Set the limit for the number of users on channel to 10.  </li>
+  <li>MODE &amp;oulu +b<br/> ; list ban masks set for channel.  </li>
+  <li>MODE &amp;oulu +b *!*@*<br/> ; prevent all users from joining.  </li>
+  <li>MODE &amp;oulu +b *!*@*.edu<br/> ; prevent any user from a hostname matching *.edu from joining.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.13.2"><a href="#rfc.section.4.13.2">4.13.2.</a> <a href="#UserModes" id="UserModes">User modes</a></h1>
+<p id="rfc.section.4.13.2.p.1">Parameters: &lt;nickname&gt; {[+|-]|&lt;mode&gt;} </p>
+<p id="rfc.section.4.13.2.p.2">The user MODEs are typically changes which affect either how the client is seen by others or what 'extra' messages the client is sent.  A user MODE command MUST only be accepted if both the sender of the message and the nickname given as a parameter are both the same, although servers and opers MAY also be able to change some user modes.  </p>
+<p id="rfc.section.4.13.2.p.3">The various standard modes available for users are as follows: </p>
+
+<ul class="empty">
+  <li>i - marks a users as invisible;</li>
+  <li>s - marks a user for receipt of server notices;</li>
+  <li>w - user receives wallops;</li>
+  <li>o - operator flag.</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.13.2.p.4">Servers MAY offer additional user modes in addition to those listed here.  Servers MUST list the user modes they support in the RPL_ISUPPORT numeric sent after client registration (see <a href="#RPL_ISUPPORT">Section 3.2</a> for more details).  </p>
+<p id="rfc.section.4.13.2.p.5">If a user attempts to make themselves an operator using the "+o" flag, the attempt should be ignored.  There is no restriction, however, on anyone `deopping' themselves (using "-o").  </p>
+<p id="rfc.section.4.13.2.p.6">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_UMODEIS</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>ERR_NOSUCHCHANNEL</li>
+  <li>ERR_USERSDONTMATCH</li>
+  <li>ERR_UMODEUNKNOWNFLAG</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.13.2.p.7">Examples: </p>
+
+<ul class="empty">
+  <li>:MODE WiZ -w<br/> ; turns reception of WALLOPS messages off for WiZ.  </li>
+  <li>:Angel MODE Angel +i<br/> ; Message from Angel to make themselves invisible.  </li>
+  <li>MODE WiZ -o<br/> ; WiZ 'deopping' (removing operator status).  The plain reverse of this command ("MODE WiZ +o") must not be allowed from users since would bypass the OPER command.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.14"><a href="#rfc.section.4.14">4.14.</a> <a href="#NAMES" id="NAMES">NAMES command</a></h1>
+<p id="rfc.section.4.14.p.1">Command: NAMES<br/> Parameters: [&lt;channel&gt;{,&lt;channel&gt;}] </p>
+<p id="rfc.section.4.14.p.2">By using the NAMES command, a user can list all nicknames that are visible to them on any channel that they can see.  Channel names which they can see are those which aren't private (+p) or secret (+s) or those which they are actually on.  The &lt;channel&gt; parameter specifies which channel(s) to return information about if valid.  There is no error reply for bad channel names.  </p>
+<p id="rfc.section.4.14.p.3">If no &lt;channel&gt; parameter is given, a list of all channels and their occupants is returned.  At the end of this list, a list of users who are visible but either not on any channel or not on a visible channel are listed as being on 'channel' "*".  </p>
+<p id="rfc.section.4.14.p.4">Numerics: </p>
+
+<ul class="empty">
+  <li>RPL_NAMREPLY</li>
+  <li>RPL_ENDOFNAMES</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.14.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>NAMES #twilight_zone,#42<br/> ; list visible users on #twilight_zone and #42 if the channels are visible to you.  </li>
+  <li>NAMES<br/> ; list all visible channels and users </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.15"><a href="#rfc.section.4.15">4.15.</a> <a href="#NICK" id="NICK">NICK command</a></h1>
+<p id="rfc.section.4.15.p.1">Command: NICK <br/> Parameters: &lt;nickname&gt; </p>
+<p id="rfc.section.4.15.p.2">The NICK message is used to give user a nickname or change the previous one.  </p>
+<p id="rfc.section.4.15.p.3">If a NICK message arrives at a server which already knows about an identical nickname for another client, a nickname collision occurs.  As a result of a nickname collision, all instances of the nickname are removed from the server's database, and a KILL command is issued to remove the nickname from all other server's database. If the NICK message causing the collision was a nickname change, then the original (old) nick must be removed as well.  </p>
+<p id="rfc.section.4.15.p.4">If the server recieves an identical NICK from a client which is directly connected, it may issue an ERR_NICKCOLLISION to the local client, drop the NICK command, and not generate any kills.  </p>
+<p id="rfc.section.4.15.p.5">Numeric replies: </p>
+
+<ul class="empty">
+  <li>ERR_NONICKNAMEGIVEN</li>
+  <li>ERR_ERRONEUSNICKNAME</li>
+  <li>ERR_NICKNAMEINUSE</li>
+  <li>ERR_NICKCOLLISION</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.16"><a href="#rfc.section.4.16">4.16.</a> <a href="#NOTICE" id="NOTICE">NOTICE command</a></h1>
+<p id="rfc.section.4.16.p.1">Command: NOTICE<br/> Parameters: &lt;receiver&gt;{,&lt;receiver&gt;} :&lt;text to be sent&gt; </p>
+<p id="rfc.section.4.16.p.2">The NOTICE message is used similarly to PRIVMSG.  The difference between NOTICE and PRIVMSG is that automatic replies must never be sent in response to a NOTICE message.  This rule applies to servers too - they must not send any error reply back to the client on receipt of a notice.  The object of this rule is to avoid loops between a client automatically sending something in response to something it received.  This is typically used by automatons (clients with either an AI or other interactive program controlling their actions) which are always seen to be replying lest they end up in a loop with another automaton.  </p>
+<p id="rfc.section.4.16.p.3">See PRIVMSG for more details on replies and examples.  </p>
+<p id="rfc.section.4.16.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NORECIPIENT</li>
+  <li>ERR_NOTEXTTOSEND</li>
+  <li>ERR_CANNOTSENDTOCHAN</li>
+  <li>ERR_NOTOPLEVEL</li>
+  <li>ERR_WILDTOPLEVEL</li>
+  <li>ERR_TOOMANYTARGETS</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>RPL_AWAY</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.16.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>:Angel PRIVMSG Wiz :Hello are you receiving this message?<br/> ; Message from Angel to Wiz.  </li>
+  <li>PRIVMSG Angel :yes I'm receiving it receiving it!<br/> ;Message to Angel.  </li>
+  <li>PRIVMSG jto@tolsun.oulu.fi :Hello!<br/> ; Message to a client on server tolsun.oulu.fi with username of "jto".  </li>
+  <li>PRIVMSG $*.fi :Server tolsun.oulu.fi rebooting.<br/> ; Message to everyone on a server which has a name matching *.fi.  </li>
+  <li>PRIVMSG #*.edu :NSFNet is undergoing work, expect interruptions<br/> ; Message to all users who come from a host which has a name matching *.edu.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.17"><a href="#rfc.section.4.17">4.17.</a> <a href="#OPER" id="OPER">OPER command</a></h1>
+<p id="rfc.section.4.17.p.1">Command: OPER <br/> Parameters: &lt;user&gt; &lt;password&gt; </p>
+<p id="rfc.section.4.17.p.2">OPER message is used by a normal user to obtain operator privileges.  The combination of &lt;user&gt; and &lt;password&gt; are required to gain Operator privileges.  </p>
+<p id="rfc.section.4.17.p.3">If the client sending the OPER command supplies the correct password for the given user, the server then informs the rest of the network of the new operator by issuing a "MODE +o" for the clients nickname.  </p>
+<p id="rfc.section.4.17.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_YOUREOPER</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOOPERHOST</li>
+  <li>ERR_PASSWDMISMATCH</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.17.p.5">Example: </p>
+
+<ul class="empty">
+  <li>OPER foo bar<br/> ; Attempt to register as an operator using a username of "foo" and "bar" as the password.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.18"><a href="#rfc.section.4.18">4.18.</a> <a href="#PART" id="PART">PART command</a></h1>
+<p id="rfc.section.4.18.p.1">Command: PART<br/> Parameters: &lt;channel&gt;{,&lt;channel&gt;} </p>
+<p id="rfc.section.4.18.p.2">The PART message causes the client sending the message to be removed from the list of active users for all given channels listed in the parameter string.  </p>
+<p id="rfc.section.4.18.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOSUCHCHANNEL</li>
+  <li>ERR_NOTONCHANNEL</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.18.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>PART #twilight_zone<br/> ; leave channel "#twilight_zone" </li>
+  <li>PART #oz-ops,&amp;group5<br/> ; leave both channels "&amp;group5" and "#oz-ops".  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.19"><a href="#rfc.section.4.19">4.19.</a> <a href="#PASS" id="PASS">PASS command</a></h1>
+<p id="rfc.section.4.19.p.1">Command: PASS <br/> Parameters: &lt;password&gt; </p>
+<p id="rfc.section.4.19.p.2">Numeric replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_ALREADYREGISTRED</li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.20"><a href="#rfc.section.4.20">4.20.</a> <a href="#PING" id="PING">PING command</a></h1>
+<p id="rfc.section.4.20.p.1">Command: PING<br/> Parameters: &lt;server1&gt; [&lt;server2&gt;] </p>
+<p id="rfc.section.4.20.p.2">The PING message is used to test the presence of an active client at the other end of the connection.  A PING message is sent at regular intervals if no other activity detected coming from a connection.  If a connection fails to respond to a PING command within a set amount of time, that connection is closed.  </p>
+<p id="rfc.section.4.20.p.3">Any client which receives a PING message must respond to &lt;server1&gt; (server which sent the PING message out) as quickly as possible with an appropriate PONG message to indicate it is still there and alive.  Servers should not respond to PING commands but rely on PINGs from the other end of the connection to indicate the connection is alive. If the &lt;server2&gt; parameter is specified, the PING message gets forwarded there.  </p>
+<p id="rfc.section.4.20.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOORIGIN</li>
+  <li>ERR_NOSUCHSERVER</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.20.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>PING tolsun.oulu.fi<br/> ; server sending a PING message to another server to indicate it is still alive.  </li>
+  <li>PING WiZ<br/> ; PING message being sent to nick WiZ </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.21"><a href="#rfc.section.4.21">4.21.</a> <a href="#PONG" id="PONG">PONG command</a></h1>
+<p id="rfc.section.4.21.p.1">Command: PONG<br/> Parameters: &lt;daemon1&gt; [&lt;daemon2&gt;] </p>
+<p id="rfc.section.4.21.p.2">PONG message is a reply to ping message.  If parameter &lt;daemon2&gt; is given this message must be forwarded to given daemon.  The &lt;daemon&gt; parameter is the name of the daemon who has responded to PING message and generated this message.  </p>
+<p id="rfc.section.4.21.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOORIGIN</li>
+  <li>ERR_NOSUCHSERVER</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.21.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>PONG csd.bu.edu tolsun.oulu.fi<br/> ; PONG message from csd.bu.edu to tolsun.oulu.fi </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.22"><a href="#rfc.section.4.22">4.22.</a> <a href="#PRIVMSG" id="PRIVMSG">PRIVMSG command</a></h1>
+<p id="rfc.section.4.22.p.1">Command: PRIVMSG<br/> Parameters: &lt;receiver&gt;{,&lt;receiver&gt;} :&lt;text to be sent&gt; </p>
+<p id="rfc.section.4.22.p.2">PRIVMSG is used to send private messages between users.  &lt;receiver&gt; is the nickname of the receiver of the message.  &lt;receiver&gt; can also be a list of names or channels separated with commas.  </p>
+<p id="rfc.section.4.22.p.3">The &lt;receiver&gt; parameter may also me a host mask (#mask) or server mask ($mask). In both cases the server will only send the PRIVMSG to those who have a server or host matching the mask. The mask must have at least 1 (one) "." in it and no wildcards following the last ".".  This requirement exists to prevent people sending messages to "#*" or "$*", which  would broadcast to all users; from experience, this is abused more than used responsibly and properly. Wildcards are the '*' and '?' characters.  This extension to the PRIVMSG command is only available to Operators.  </p>
+<p id="rfc.section.4.22.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NORECIPIENT</li>
+  <li>ERR_NOTEXTTOSEND</li>
+  <li>ERR_CANNOTSENDTOCHAN</li>
+  <li>ERR_NOTOPLEVEL</li>
+  <li>ERR_WILDTOPLEVEL</li>
+  <li>ERR_TOOMANYTARGETS</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>RPL_AWAY</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.22.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>:Angel PRIVMSG Wiz :Hello are you receiving this message?<br/> ; Message from Angel to Wiz.  </li>
+  <li>PRIVMSG Angel :yes I'm receiving it receiving it!<br/> ;Message to Angel.  </li>
+  <li>PRIVMSG jto@tolsun.oulu.fi :Hello!<br/> ; Message to a client on server tolsun.oulu.fi with username of "jto".  </li>
+  <li>PRIVMSG $*.fi :Server tolsun.oulu.fi rebooting.<br/> ; Message to everyone on a server which has a name matching *.fi.  </li>
+  <li>PRIVMSG #*.edu :NSFNet is undergoing work, expect interruptions<br/> ; Message to all users who come from a host which has a name matching *.edu.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.23"><a href="#rfc.section.4.23">4.23.</a> <a href="#QUIT" id="QUIT">QUIT command</a></h1>
+<p id="rfc.section.4.23.p.1">Command: QUIT <br/> Parameters: [&lt;quit message&gt;] </p>
+<p id="rfc.section.4.23.p.2">A client session is ended with a quit message.  The server must close the connection to a client which sends a QUIT message.  If a "Quit Message" is given, this will be sent instead of the default message, the nickname.  </p>
+<p id="rfc.section.4.23.p.3">When netsplits (disconnecting of two servers) occur, the quit message is composed of the names of two servers involved, separated by a space.  The first name is that of the server which is still connected and the second name is that of the server that has become disconnected.  </p>
+<p id="rfc.section.4.23.p.4">If, for some other reason, a client connection is closed without the client issuing a QUIT command (e.g. client dies and EOF occurs on socket), the server is required to fill in the quit message with some sort of message reflecting the nature of the event which caused it to happen.  </p>
+<p id="rfc.section.4.23.p.5">Example: </p>
+
+<ul class="empty">
+  <li>QUIT :Gone to lunch </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.24"><a href="#rfc.section.4.24">4.24.</a> <a href="#REHASH" id="REHASH">REHASH command</a></h1>
+<p id="rfc.section.4.24.p.1">Command: REHASH<br/> Parameters: None </p>
+<p id="rfc.section.4.24.p.2">The rehash message can be used by the operator to force the server to re-read and process its configuration file.  </p>
+<p id="rfc.section.4.24.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_REHASHING</li>
+  <li>ERR_NOPRIVILEGES</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.24.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>REHASH<br/> ; message from client with operator status to server asking it to reread its configuration file.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.25"><a href="#rfc.section.4.25">4.25.</a> <a href="#RESTART" id="RESTART">RESTART command</a></h1>
+<p id="rfc.section.4.25.p.1">Command: RESTART<br/> Parameters: None </p>
+<p id="rfc.section.4.25.p.2">The restart message can only be used by an operator to force a server restart itself.  This message is optional since it may be viewed as a risk to allow arbitrary people to connect to a server as an operator and execute this command, causing (at least) a disruption to service.  </p>
+<p id="rfc.section.4.25.p.3">The RESTART command must always be fully processed by the server to which the sending client is connected and not be passed onto other connected servers.  </p>
+<p id="rfc.section.4.25.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOPRIVILEGES</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.25.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>RESTART<br/> ; no parameters required.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.26"><a href="#rfc.section.4.26">4.26.</a> <a href="#STATS" id="STATS">STATS command</a></h1>
+<p id="rfc.section.4.26.p.1">Command: STATS Parameters: [&lt;query&gt; [&lt;server&gt;]] </p>
+<p id="rfc.section.4.26.p.2">The stats message is used to query statistics of certain server.  If &lt;server&gt; parameter is omitted, only the end of stats reply is sent back.  The implementation of this command is highly dependent on the server which replies, although the server must be able to supply information as described by the queries below (or similar).  </p>
+<p id="rfc.section.4.26.p.3">A query may be given by any single letter which is only checked by the destination server (if given as the &lt;server&gt; parameter) and is otherwise passed on by intermediate servers, ignored and unaltered. All servers SHOULD be able to supply a valid reply to a STATS query which is consistent with the reply formats currently used and the purpose of the query.  </p>
+<p id="rfc.section.4.26.p.4">[TODO: Insert list of supported STATS queries, numeric replies and examples] </p>
+<h1 id="rfc.section.4.27"><a href="#rfc.section.4.27">4.27.</a> <a href="#TIME" id="TIME">TIME command</a></h1>
+<p id="rfc.section.4.27.p.1">Command: TIME<br/> Parameters: [&lt;server&gt;&gt;] </p>
+<p id="rfc.section.4.27.p.2">The time message is used to query local time from the specified server.  If the server parameter is not given, the server handling the command must reply to the query.  </p>
+<p id="rfc.section.4.27.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>RPL_TIME</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.27.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>TIME tolsun.oulu.fi<br/> ; check the time on the server "tolson.oulu.fi" </li>
+  <li>Angel TIME *.au<br/> ; user angel checking the time on a server matching "*.au" </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.28"><a href="#rfc.section.4.28">4.28.</a> <a href="#TOPIC" id="TOPIC">TOPIC command</a></h1>
+<p id="rfc.section.4.28.p.1">Command: TOPIC<br/> Parameters: &lt;channel&gt; [&lt;topic&gt;] </p>
+<p id="rfc.section.4.28.p.2">The TOPIC message is used to change or view the topic of a channel.  The topic for channel &lt;channel&gt; is returned if there is no &lt;topic&gt; given.  If the &lt;topic&gt; parameter is present, the topic for that channel will be changed, if the channel modes permit this action.  </p>
+<p id="rfc.section.4.28.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>RPL_TOPIC</li>
+  <li>RPL_NOTOPIC</li>
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_NOTONCHANNEL</li>
+  <li>ERR_CHANOPRIVSNEEDED</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.28.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>:Wiz TOPIC #test :New topic<br/> ;User Wiz setting the topic.  </li>
+  <li>TOPIC #test :another topic<br/> ;set the topic on #test to "another topic".  </li>
+  <li>TOPIC #test<br/> ; check the topic for #test.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.29"><a href="#rfc.section.4.29">4.29.</a> <a href="#TRACE" id="TRACE">TRACE command</a></h1>
+<p id="rfc.section.4.29.p.1">Command: TRACE<br/> Parameters: [&lt;server&gt;] </p>
+<p id="rfc.section.4.29.p.2">TRACE command is used to find the route to specific server.  Each server that processes this message must tell the sender about it by sending a reply indicating it is a pass-through link, forming a chain of replies similar to that gained from using "traceroute".  After sending this reply back, it must then send the TRACE message to the next server until given server is reached.  If the &lt;server&gt; parameter is omitted, it is recommended that TRACE command send a message to the sender telling which servers the current server has direct connection to.  </p>
+<p id="rfc.section.4.29.p.3">If the destination given by "&lt;server&gt;" is an actual server, then the destination server is required to report all servers and users which are connected to it, although only operators are permitted to see users present.  If the destination given by &lt;server&gt; is a nickname, they only a reply for that nickname is given.  </p>
+<p id="rfc.section.4.29.p.4">If the TRACE message is destined for another server, all intermediate servers must return a RPL_TRACELINK reply to indicate that the TRACE passed through it and where its going next.  </p>
+<p id="rfc.section.4.29.p.5">A TRACE reply may be composed of any number of the following numeric replies.  </p>
+<p id="rfc.section.4.29.p.6">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>RPL_TRACECONNECTING</li>
+  <li>RPL_TRACEUNKNOWN</li>
+  <li>RPL_TRACEOPERATOR</li>
+  <li>RPL_TRACEUSER</li>
+  <li>RPL_TRACESERVER</li>
+  <li>RPL_TRACESERVICE</li>
+  <li>RPL_TRACENEWTYPE</li>
+  <li>RPL_TRACECLASS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.29.p.7">Examples: </p>
+
+<ul class="empty">
+  <li>TRACE *.oulu.fi<br/> ; TRACE to a server matching *.oulu.fi </li>
+  <li>:WiZ TRACE AngelDust<br/> ; TRACE issued by WiZ to nick AngelDust </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.30"><a href="#rfc.section.4.30">4.30.</a> <a href="#USER" id="USER">USER command</a></h1>
+<p id="rfc.section.4.30.p.1">Command: USER <br/> Parameters: &lt;user&gt; &lt;unused&gt; &lt;unused&gt; &lt;real name&gt; </p>
+<p id="rfc.section.4.30.p.2">The USER command is used at the beginning of connection to specify the username and realname of a new user.  Parameters 2 and 3 are unused but MUST be transmitted for backwards compatibility with version 2 of this protocol.  It is RECOMMENDED that the value of these two parameters be "*".  The &lt;realname&gt; may contain space characters.  </p>
+<p id="rfc.section.4.30.p.3">Numeric replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>ERR_ALREADYREGISTRED</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.30.p.4">Example: </p>
+
+<ul class="empty">
+  <li>USER guest * * :Ronnie Reagan<br/> ; User registering themselves with a username of "guest" and real name "Ronnie Reagan".  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.31"><a href="#rfc.section.4.31">4.31.</a> <a href="#USERHOST" id="USERHOST">USERHOST command</a></h1>
+<p id="rfc.section.4.31.p.1">Command: USERHOST<br/> Parameters: &lt;nickname&gt;{&lt;space&gt;&lt;nickname&gt;} </p>
+<p id="rfc.section.4.31.p.2">The USERHOST command takes a list of up to 5 nicknames, each separated by a space character and returns a list of information about each nickname that it found.  The returned list has each reply separated by a space.  </p>
+<p id="rfc.section.4.31.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+  <li>RPL_USERHOST</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.31.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>USERHOST Wiz Michael Marty p<br/> ;USERHOST request for information on nicks "Wiz", "Michael", "Marty" and "p" </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.32"><a href="#rfc.section.4.32">4.32.</a> <a href="#USERS" id="USERS">USERS command</a></h1>
+<p id="rfc.section.4.32.p.1">Command: USERS<br/> Parameters: [&lt;server&gt;] </p>
+<p id="rfc.section.4.32.p.2">The USERS command returns a list of users logged into the server in a similar format to who(1), rusers(1) and finger(1).  Some people may disable this command on their server for security related reasons.  If disabled, the correct numeric must be returned to indicate this.  </p>
+<p id="rfc.section.4.32.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>ERR_FILEERROR</li>
+  <li>ERR_USERSDISABLED</li>
+  <li>RPL_USERSSTART</li>
+  <li>RPL_USERS</li>
+  <li>RPL_NOUSERS</li>
+  <li>RPL_ENDOFUSERS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.32.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>USERS eff.org<br/> ; request a list of users logged in on server eff.org </li>
+  <li>:John USERS tolsun.oulu.fi<br/> ; request from John for a list of users logged in on server tolsun.oulu.fi </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.33"><a href="#rfc.section.4.33">4.33.</a> <a href="#VERSION" id="VERSION">VERSION command</a></h1>
+<p id="rfc.section.4.33.p.1">Command: VERSION<br/> Parameters: [&lt;server&gt;] </p>
+<p id="rfc.section.4.33.p.2">The VERSION message is used to query the version of the server program.  An optional parameter &lt;server&gt; is used to query the version of the server program which a client is not directly connected to.  </p>
+<p id="rfc.section.4.33.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>RPL_VERSION</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.33.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>:Wiz VERSION *.se<br/> ; message from Wiz to check the version of a server matching "*.se" </li>
+  <li>VERSION tolsun.oulu.fi<br/> ; check the version of server "tolsun.oulu.fi".  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.34"><a href="#rfc.section.4.34">4.34.</a> <a href="#WALLOPS" id="WALLOPS">WALLOPS command</a></h1>
+<p id="rfc.section.4.34.p.1">Command: WALLOPS<br/> Parameters: Message </p>
+<p id="rfc.section.4.34.p.2">Sends a message to all operators currently online.  After implementing WALLOPS as a user command it was found that it was often and commonly abused as a means of sending a message to a lot of  people (much  similar to WALL).  Due to this it is recommended that the current implementation of  WALLOPS be used as an example by allowing and recognising only servers as the senders of WALLOPS.  </p>
+<p id="rfc.section.4.34.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NEEDMOREPARAMS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.34.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>:csd.bu.edu WALLOPS :Connect '*.uiuc.edu 6667' from Joshua<br/> ; WALLOPS message from csd.bu.edu announcing a CONNECT message it received and acted upon from Joshua.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.35"><a href="#rfc.section.4.35">4.35.</a> <a href="#WHO" id="WHO">WHO command</a></h1>
+<p id="rfc.section.4.35.p.1">Command: WHO<br/> Parameters: [&lt;name&gt; [&lt;o&gt;]] </p>
+<p id="rfc.section.4.35.p.2">The WHO message is used by a client to generate a query which returns a list of information which 'matches' the &lt;name&gt; parameter given by the client.  In the absence of the &lt;name&gt; parameter, all visible (users who aren't invisible (user mode +i) and who don't have a common channel with the requesting client) are listed.  The same result can be achieved by using a &lt;name&gt; of "0" or any wildcard which will end up matching every entry possible.  </p>
+<p id="rfc.section.4.35.p.3">The &lt;name&gt; passed to WHO is matched against users' host, server, real name and nickname if the channel &lt;name&gt; cannot be found.  </p>
+<p id="rfc.section.4.35.p.4">If the "o" parameter is passed only operators are returned according to the name mask supplied.  </p>
+<p id="rfc.section.4.35.p.5">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>RPL_WHOREPLY</li>
+  <li>RPL_ENDOFWHO</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.35.p.6">Examples: </p>
+
+<ul class="empty">
+  <li>WHO *.fi<br/> ; List all users who match against "*.fi".  </li>
+  <li>PRIVMSG Angel :yes I'm receiving it receiving it!<br/> ;Message to Angel.  </li>
+  <li>WHO jto* o<br/> ; List all users with a match against "jto*" if they are an operator.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.36"><a href="#rfc.section.4.36">4.36.</a> <a href="#WHOIS" id="WHOIS">WHOIS command</a></h1>
+<p id="rfc.section.4.36.p.1">Command: WHOIS<br/> Parameters: [&lt;server&gt;] &lt;nickmask&gt;[,&lt;nickmask&gt;[,...]] </p>
+<p id="rfc.section.4.36.p.2">This message is used to query information about particular user.  The server will answer this message with several numeric messages indicating different statuses of each user which matches the nickmask (if you are entitled to see them).  If no wildcard is present in the &lt;nickmask&gt;, any information about that nick which you are allowed to see is presented.  A comma (',') separated list of nicknames may be given.  </p>
+<p id="rfc.section.4.36.p.3">The latter version sends the query to a specific server.  It is useful if you want to know how long the user in question has been idle as only local server (ie. the server the user is directly connected to) knows that information, while everything else is globally known.  </p>
+<p id="rfc.section.4.36.p.4">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NOSUCHSERVER</li>
+  <li>ERR_NONICKNAMEGIVEN</li>
+  <li>ERR_NOSUCHNICK</li>
+  <li>RPL_WHOISUSER</li>
+  <li>RPL_WHOISCHANNELS</li>
+  <li>RPL_WHOISCHANNELS</li>
+  <li>RPL_WHOISSERVER</li>
+  <li>RPL_AWAY</li>
+  <li>RPL_WHOISOPERATOR</li>
+  <li>RPL_WHOISIDLE</li>
+  <li>RPL_ENDOFWHOIS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.36.p.5">Examples: </p>
+
+<ul class="empty">
+  <li>WHOIS wiz<br/> ; return available user information about nick WiZ </li>
+  <li>WHOIS eff.org trillian<br/> ; ask server eff.org for user information about trillian </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.4.37"><a href="#rfc.section.4.37">4.37.</a> <a href="#WHOWAS" id="WHOWAS">WHOWAS command</a></h1>
+<p id="rfc.section.4.37.p.1">Command: WHOWAS<br/> Parameters: &lt;nickname&gt; [&lt;count&gt; [&lt;server&gt;]] </p>
+<p id="rfc.section.4.37.p.2">Whowas asks for information about a nickname which no longer exists. This may either be due to a nickname change or the user leaving IRC. In response to this query, the server searches through its nickname history, looking for any nicks which are lexically the same (no wild card matching here).  The history is searched backward, returning the most recent entry first.  If there are multiple entries, up to &lt;count&gt; replies will be returned (or all of them if no &lt;count&gt; parameter is given).  If a non-positive number is passed as being &lt;count&gt;, then a full search is done.  </p>
+<p id="rfc.section.4.37.p.3">Numeric Replies: </p>
+
+<ul class="empty">
+  <li>ERR_NONICKNAMEGIVEN</li>
+  <li>ERR_WASNOSUCHNICK</li>
+  <li>RPL_WHOWASUSER</li>
+  <li>RPL_WHOISSERVER</li>
+  <li>RPL_ENDOFWHOWAS</li>
+</ul>
+
+<p> </p>
+<p id="rfc.section.4.37.p.4">Examples: </p>
+
+<ul class="empty">
+  <li>WHOWAS Wiz<br/> ; return all information in the nick history about nick "WiZ"; </li>
+  <li>WHOWAS Mermaid 9<br/> ; return at most, the 9 most recent entries in the nick history for "Mermaid"; </li>
+  <li>WHOWAS Trillian 1 *.edu<br/> ; return the most recent history for "Trillian" from the first server found to match "*.edu".  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#NumericReplies" id="NumericReplies">Numeric replies</a></h1>
+<p id="rfc.section.5.p.1">The following is a list of numeric replies which are generated in response to the commands given above.  Each numeric is given with its number, name and reply string.  </p>
+<h1 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a> <a href="#CommandResponses" id="CommandResponses">Command responses</a></h1>
+<p/>
+
+<ul class="empty">
+  <li>001&#160;&#160;&#160;&#160;RPL_WELCOME<br/> ":Welcome to the Internet Relay Network &lt;nick&gt;!&lt;user&gt;@&lt;host&gt;" </li>
+  <li>002&#160;&#160;&#160;&#160;RPL_YOURHOST<br/> ":Your host is &lt;servername&gt;, running version &lt;version&gt;" </li>
+  <li>003&#160;&#160;&#160;&#160;RPL_CREATED<br/> ":This server was created &lt;date&gt;" </li>
+  <li>004&#160;&#160;&#160;&#160;RPL_MYINFO<br/> "&lt;server_name&gt; &lt;version&gt; &lt;user_modes&gt; &lt;chan_modes&gt; &lt;channel_modes_with_params&gt; &lt;user_modes_with_params&gt; &lt;server_modes&gt; &lt;server_modes_with_params&gt;" </li>
+  <li>005&#160;&#160;&#160;&#160;RPL_ISUPPORT<br/> - See <a href="#RPL_ISUPPORT">Section 3.2</a> for the format of the 005 numeric </li>
+  <li>200&#160;&#160;&#160;&#160;RPL_TRACELINK<br/> "Link &lt;version &amp; debug level&gt; &lt;destination&gt; &lt;next server&gt;" </li>
+  <li>201&#160;&#160;&#160;&#160;RPL_TRACECONNECTING<br/> "Try. &lt;class&gt; &lt;server&gt;" </li>
+  <li>202&#160;&#160;&#160;&#160;RPL_TRACEHANDSHAKE<br/> "H.S. &lt;class&gt; &lt;server&gt;" </li>
+  <li>203&#160;&#160;&#160;&#160;RPL_TRACEUNKNOWN<br/> "???? &lt;class&gt; [&lt;client IP address in dot form&gt;]" </li>
+  <li>204&#160;&#160;&#160;&#160;RPL_TRACEOPERATOR<br/> "Oper &lt;class&gt; &lt;nick&gt;" </li>
+  <li>205&#160;&#160;&#160;&#160;RPL_TRACEUSER<br/> "User &lt;class&gt; &lt;nick&gt;" </li>
+  <li>206&#160;&#160;&#160;&#160;RPL_TRACESERVER<br/> "Serv &lt;class&gt; &lt;int&gt;S &lt;int&gt;C &lt;server&gt; &lt;nick!user|*!*&gt;@&lt;host|server&gt;" </li>
+  <li>208&#160;&#160;&#160;&#160;RPL_TRACENEWTYPE<br/> "&lt;newtype&gt; 0 &lt;client name&gt;" </li>
+  <li>211&#160;&#160;&#160;&#160;RPL_STATSLINKINFO<br/> "&lt;linkname&gt; &lt;sendq&gt; &lt;sent messages&gt; &lt;sent bytes&gt; &lt;received messages&gt;&gt; &lt;received bytes&gt; &lt;time open&gt;" </li>
+  <li>212&#160;&#160;&#160;&#160;RPL_STATSCOMMANDS<br/> "&lt;command&gt; &lt;count&gt;" </li>
+  <li>213&#160;&#160;&#160;&#160;RPL_STATSCLINE<br/> "C &lt;host&gt; * &lt;name&gt; &lt;port&gt; &lt;class&gt;" </li>
+  <li>214&#160;&#160;&#160;&#160;RPL_STATSNLINE<br/> "N &lt;host&gt; * &lt;name&gt; &lt;port&gt; &lt;class&gt;" </li>
+  <li>215&#160;&#160;&#160;&#160;RPL_STATSILINE<br/> "I &lt;host&gt; * &lt;host&gt; &lt;port&gt; &lt;class&gt;" </li>
+  <li>216&#160;&#160;&#160;&#160;RPL_STATSKLINE<br/> "K &lt;host&gt; * &lt;username&gt; &lt;port&gt; &lt;class&gt;" </li>
+  <li>218&#160;&#160;&#160;&#160;RPL_STATSYLINE<br/> "Y &lt;class&gt; &lt;ping frequency&gt; &lt;connect frequency&gt; &lt;max sendq&gt;" </li>
+  <li>219&#160;&#160;&#160;&#160;RPL_ENDOFSTATS<br/> "&lt;stats letter&gt; :End of /STATS report" </li>
+  <li>221&#160;&#160;&#160;&#160;RPL_UMODEIS<br/> "&lt;user mode string&gt;" </li>
+  <li>241&#160;&#160;&#160;&#160;RPL_STATSLLINE<br/> "L &lt;hostmask&gt; * &lt;servername&gt; &lt;maxdepth&gt;" </li>
+  <li>242&#160;&#160;&#160;&#160;RPL_STATSUPTIME<br/> ":Server Up %d days %d:%02d:%02d" </li>
+  <li>243&#160;&#160;&#160;&#160;RPL_STATSOLINE<br/> "O &lt;hostmask&gt; * &lt;name&gt;" </li>
+  <li>244&#160;&#160;&#160;&#160;RPL_STATSHLINE<br/> "H &lt;hostmask&gt; * &lt;servername&gt;" </li>
+  <li>251&#160;&#160;&#160;&#160;RPL_LUSERCLIENT<br/> ":There are &lt;integer&gt; users and &lt;integer&gt; invisible on &lt;integer&gt; servers" </li>
+  <li>252&#160;&#160;&#160;&#160;RPL_LUSEROP<br/> "&lt;integer&gt; :operator(s) online" </li>
+  <li>253&#160;&#160;&#160;&#160;RPL_LUSERUNKNOWN<br/> "&lt;integer&gt; :unknown connection(s)" </li>
+  <li>254&#160;&#160;&#160;&#160;RPL_LUSERCHANNELS<br/> "&lt;integer&gt; :channels formed" </li>
+  <li>255&#160;&#160;&#160;&#160;RPL_LUSERME<br/> ":I have &lt;integer&gt; clients and &lt;integer&gt; servers"<br/><br/> - In processing an LUSERS message, the server sends a set of replies from RPL_LUSERCLIENT, RPL_LUSEROP, RPL_USERUNKNOWN, RPL_LUSERCHANNELS and RPL_LUSERME.  When replying, a server must send back RPL_LUSERCLIENT and RPL_LUSERME.  The other replies are only sent back if a non-zero count is found for them.  </li>
+  <li>256&#160;&#160;&#160;&#160;RPL_ADMINME<br/> "&lt;server&gt; :Administrative info" </li>
+  <li>257&#160;&#160;&#160;&#160;RPL_ADMINLOC1<br/> ":&lt;admin info&gt;" </li>
+  <li>258&#160;&#160;&#160;&#160;RPL_ADMINLOC2<br/> ":&lt;admin info&gt;" </li>
+  <li>259&#160;&#160;&#160;&#160;RPL_ADMINEMAIL<br/> ":&lt;admin info&gt;"<br/><br/> - When replying to an ADMIN message, a server is expected to use replies RLP_ADMINME through to RPL_ADMINEMAIL and provide a text message with each.  For RPL_ADMINLOC1 a description of what city, state and country the server is in is expected, followed by details of the university and department (RPL_ADMINLOC2) and finally the administrative contact for the server (an email address here is required) in RPL_ADMINEMAIL.  </li>
+  <li>261&#160;&#160;&#160;&#160;RPL_TRACELOG<br/> "File &lt;logfile&gt; &lt;debug level&gt;"<br/><br/> - The RPL_TRACE* are all returned by the server in response to the TRACE message.  How many are returned is dependent on the the TRACE message and whether it was sent by an operator or not.  There is no predefined order for which occurs first. Replies RPL_TRACEUNKNOWN, RPL_TRACECONNECTING and RPL_TRACEHANDSHAKE are all used for connections which have not been fully established and are either unknown, still attempting to connect or in the process of completing the 'server handshake'. RPL_TRACELINK is sent by any server which handles a TRACE message and has to pass it on to another server.  The list of RPL_TRACELINKs sent in response to a TRACE command traversing the IRC network should reflect the actual connectivity of the servers themselves along that path. RPL_TRACENEWTYPE is to be used for any connection which does not fit in the other categories but is being displayed anyway.  </li>
+  <li>300&#160;&#160;&#160;&#160;RPL_NONE<br/> Dummy reply number. Not used.  </li>
+  <li>301&#160;&#160;&#160;&#160;RPL_AWAY<br/> "&lt;nick&gt; :&lt;away message&gt;" </li>
+  <li>302&#160;&#160;&#160;&#160;RPL_USERHOST<br/> ":[&lt;reply&gt;{&lt;space&gt;&lt;reply&gt;}]"<br/><br/> - Reply format used by USERHOST to list replies to the query list.  The reply string is composed as follows:<br/> &lt;reply&gt; ::= &lt;nick&gt;['*'] '=' &lt;'+'|'-'&gt;&lt;hostname&gt; The '*' indicates whether the client has registered as an Operator.  The '-' or '+' characters represent whether the client has set an AWAY message or not respectively.  </li>
+  <li>303&#160;&#160;&#160;&#160;RPL_ISON<br/> ":[&lt;nick&gt; {&lt;space&gt;&lt;nick&gt;}]" </li>
+  <li>305&#160;&#160;&#160;&#160;RPL_UNAWAY<br/> ":You are no longer marked as being away" </li>
+  <li>306&#160;&#160;&#160;&#160;RPL_NOWAWAY<br/> ":You have been marked as being away"<br/><br/> - These replies are used with the AWAY command (if allowed).  RPL_AWAY is sent to any client sending a PRIVMSG to a client which is away.  RPL_AWAY is only sent by the server to which the client is connected.  Replies RPL_UNAWAY and RPL_NOWAWAY are sent when the client removes and sets an AWAY message.  </li>
+  <li>311&#160;&#160;&#160;&#160;RPL_WHOISUSER<br/> "&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;" </li>
+  <li>312&#160;&#160;&#160;&#160;RPL_WHOISSERVER<br/> "&lt;nick&gt; &lt;server&gt; :&lt;server info&gt;" </li>
+  <li>313&#160;&#160;&#160;&#160;RPL_WHOISOPERATOR<br/> "&lt;nick&gt; :is an IRC operator" </li>
+  <li>314&#160;&#160;&#160;&#160;RPL_WHOWASUSER<br/> "&lt;nick&gt; &lt;user&gt; &lt;host&gt; * :&lt;real name&gt;" </li>
+  <li>315&#160;&#160;&#160;&#160;RPL_ENDOFWHO<br/> "&lt;name&gt; :End of /WHO list" </li>
+  <li>317&#160;&#160;&#160;&#160;RPL_WHOISIDLE<br/> "&lt;nick&gt; &lt;integer&gt; :seconds idle" </li>
+  <li>318&#160;&#160;&#160;&#160;RPL_ENDOFWHOIS<br/> "&lt;nick&gt; :End of /WHOIS list" </li>
+  <li>319&#160;&#160;&#160;&#160;RPL_WHOISCHANNELS<br/> "&lt;nick&gt; :{[@|+]&lt;channel&gt;&lt;space&gt;}"<br/><br/> - Replies 311 - 313, 317 - 319 are all replies generated in response to a WHOIS message.  Given that there are enough parameters present, the answering server must either formulate a reply out of the above numerics (if the query nick is found) or return an error reply.  The '*' in RPL_WHOISUSER is there as the literal character and not as a wild card.  For each reply set, only RPL_WHOISCHANNELS may appear more than once (for long lists of channel names).  The '@' and '+' characters next to the channel name indicate whether a client is a channel operator or has been granted permission to speak on a moderated channel.  The RPL_ENDOFWHOIS reply is used to mark the end of processing a WHOIS message.  </li>
+  <li>321&#160;&#160;&#160;&#160;RPL_LISTSTART<br/> "Channel :Users  Name" </li>
+  <li>322&#160;&#160;&#160;&#160;RPL_LIST<br/> "&lt;channel&gt; &lt;# visible&gt; :&lt;topic&gt;" </li>
+  <li>323&#160;&#160;&#160;&#160;RPL_LISTEND<br/> ":End of /LIST"<br/><br/> - Replies RPL_LISTSTART, RPL_LIST, RPL_LISTEND mark the start, actual replies with data and end of the server's response to a LIST command.  If there are no channels available to return, only the start and end reply must be sent.  </li>
+  <li>324&#160;&#160;&#160;&#160;RPL_CHANNELMODEIS<br/> "&lt;channel&gt; &lt;mode&gt; &lt;mode params&gt;" </li>
+  <li>331&#160;&#160;&#160;&#160;RPL_NOTOPIC<br/> "&lt;channel&gt; :No topic is set" </li>
+  <li>332&#160;&#160;&#160;&#160;RPL_TOPIC<br/> "&lt;channel&gt; :&lt;topic&gt;"<br/><br/> - When sending a TOPIC message to determine the channel topic, one of two replies is sent.  If the topic is set, RPL_TOPIC is sent back else RPL_NOTOPIC.  </li>
+  <li>341&#160;&#160;&#160;&#160;RPL_INVITING<br/> "&lt;channel&gt; &lt;nick&gt;"<br/><br/> - Returned by the server to indicate that the attempted INVITE message was successful and is being passed onto the end client.  </li>
+  <li>342&#160;&#160;&#160;&#160;RPL_SUMMONING<br/> "&lt;user&gt; :Summoning user to IRC" - Deprecated </li>
+  <li>351&#160;&#160;&#160;&#160;RPL_VERSION<br/> "&lt;version&gt;.&lt;debuglevel&gt; &lt;server&gt; :&lt;comments&gt;"<br/><br/> - Reply by the server showing its version details.  The &lt;version&gt; is the version of the software being used (including any patchlevel revisions) and the &lt;debuglevel&gt; is used to indicate if the server is running in "debug mode".<br/>The "comments" field may contain any comments about the version or further version details.  </li>
+  <li>352&#160;&#160;&#160;&#160;RPL_WHOREPLY<br/> "&lt;channel&gt; &lt;user&gt; &lt;host&gt; &lt;server&gt; &lt;nick&gt; &lt;H|G&gt;[*][@|+] :&lt;hopcount&gt; &lt;real name&gt;" </li>
+  <li>353&#160;&#160;&#160;&#160;RPL_NAMREPLY<br/> "&lt;channel&gt; :[[@|+]&lt;nick&gt; [[@|+]&lt;nick&gt; [...]]]" </li>
+  <li>364&#160;&#160;&#160;&#160;RPL_LINKS<br/> "&lt;mask&gt; &lt;server&gt; :&lt;hopcount&gt; &lt;server info&gt;" </li>
+  <li>365&#160;&#160;&#160;&#160;RPL_ENDOFLINKS<br/> "&lt;mask&gt; :End of /LINKS list"<br/><br/> - In replying to the LINKS message, a server must send replies back using the RPL_LINKS numeric and mark the end of the list using an RPL_ENDOFLINKS reply.  </li>
+  <li>366&#160;&#160;&#160;&#160;RPL_ENDOFNAMES<br/> "&lt;channel&gt; :End of /NAMES list" </li>
+  <li>367&#160;&#160;&#160;&#160;RPL_BANLIST<br/> "&lt;channel&gt; &lt;banid&gt;" </li>
+  <li>368&#160;&#160;&#160;&#160;RPL_ENDOFBANLIST<br/> "&lt;channel&gt; :End of channel ban list"<br/><br/> - When listing the active 'bans' for a given channel, a server is required to send the list back using the RPL_BANLIST and RPL_ENDOFBANLIST messages.  A separate RPL_BANLIST is sent for each active banid.  After the banids have been listed (or if none present) a RPL_ENDOFBANLIST must be sent.  </li>
+  <li>369&#160;&#160;&#160;&#160;RPL_ENDOFWHOWAS<br/> "&lt;nick&gt; :End of WHOWAS"<br/><br/> - When replying to a WHOWAS message, a server must use the replies RPL_WHOWASUSER, RPL_WHOISSERVER or ERR_WASNOSUCHNICK for each nickname in the presented list.  At the end of all reply batches, there must be RPL_ENDOFWHOWAS (even if there was only one reply and it was an error).  </li>
+  <li>371&#160;&#160;&#160;&#160;RPL_INFO<br/> ":&lt;string&gt;" </li>
+  <li>372&#160;&#160;&#160;&#160;RPL_MOTD<br/> ":- &lt;text&gt;" </li>
+  <li>374&#160;&#160;&#160;&#160;RPL_ENDOFINFO<br/> ":End of /INFO list"<br/><br/> - A server responding to an INFO message is required to send all its 'info' in a series of RPL_INFO messages with a RPL_ENDOFINFO reply to indicate the end of the replies.  </li>
+  <li>375&#160;&#160;&#160;&#160;RPL_MOTDSTART<br/> ":- &lt;server&gt; Message of the day - " </li>
+  <li>376&#160;&#160;&#160;&#160;RPL_ENDOFMOTD<br/> ":End of /MOTD command"<br/><br/> - When responding to the MOTD message and the MOTD file is found, the file is displayed line by line, with each line no longer than 80 characters, using RPL_MOTD format replies.  These should be surrounded by a RPL_MOTDSTART (before the RPL_MOTDs) and an RPL_ENDOFMOTD (after).  </li>
+  <li>381&#160;&#160;&#160;&#160;RPL_YOUREOPER<br/> ":You are now an IRC operator"<br/><br/> - RPL_YOUREOPER is sent back to a client which has just successfully issued an OPER message and gained operator status.  </li>
+  <li>382&#160;&#160;&#160;&#160;RPL_REHASHING<br/> "&lt;config file&gt; :Rehashing"<br/><br/> - If the REHASH option is used and an operator sends a REHASH message, an RPL_REHASHING is sent back to the operator.  </li>
+  <li>391&#160;&#160;&#160;&#160;RPL_TIME<br/> "&lt;server&gt; :&lt;string showing server's local time&gt;"<br/><br/> - When replying to the TIME message, a server must send the reply using the RPL_TIME format above.  The string showing the time need only contain the correct day and time there.  There is no further requirement for the time string.  </li>
+  <li>392&#160;&#160;&#160;&#160;RPL_USERSSTART<br/> ":UserID   Terminal  Host" </li>
+  <li>393&#160;&#160;&#160;&#160;RPL_USERS<br/> ":%-8s %-9s %-8s" </li>
+  <li>394&#160;&#160;&#160;&#160;RPL_ENDOFUSERS<br/> ":End of users" </li>
+  <li>395&#160;&#160;&#160;&#160;RPL_NOUSERS<br/> ":Nobody logged in"<br/><br/> - If the USERS message is handled by a server, the replies RPL_USERSTART, RPL_USERS, RPL_ENDOFUSERS and RPL_NOUSERS are used.  RPL_USERSSTART must be sent first, following by either a sequence of RPL_USERS or a single RPL_NOUSER.  Following this is RPL_ENDOFUSERS.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a> <a href="#ErrorResponses" id="ErrorResponses">Error responses</a></h1>
+<p/>
+
+<ul class="empty">
+  <li>401&#160;&#160;&#160;&#160;ERR_NOSUCHNICK<br/> "&lt;nickname&gt; :No such nick/channel"<br/><br/> - Used to indicate the nickname parameter supplied to a command is currently unused.  </li>
+  <li>402&#160;&#160;&#160;&#160;ERR_NOSUCHSERVER<br/> "&lt;server name&gt; :No such server"<br/><br/> - Used to indicate the server name given currently doesn't exist.  </li>
+  <li>403&#160;&#160;&#160;&#160;ERR_NOSUCHCHANNEL<br/> "&lt;channel name&gt; :No such channel"<br/><br/> - Used to indicate the given channel name is invalid.  </li>
+  <li>404&#160;&#160;&#160;&#160;ERR_CANNOTSENDTOCHAN<br/> "&lt;channel name&gt; :Cannot send to channel"<br/><br/> - Sent to a user who is either (a) not on a channel which is mode +n or (b) not a chanop (or mode +v) on a channel which has mode +m set and is trying to send a PRIVMSG message to that channel.  </li>
+  <li>405&#160;&#160;&#160;&#160;ERR_TOOMANYCHANNELS<br/> "&lt;channel name&gt; :You have joined too many channels"<br/><br/> - Sent to a user when they have joined the maximum number of allowed channels and they try to join another channel.  </li>
+  <li>406&#160;&#160;&#160;&#160;ERR_WASNOSUCHNICK<br/> "&lt;nickname&gt; :There was no such nickname"<br/><br/> - Returned by WHOWAS to indicate there is no history information for that nickname.  </li>
+  <li>407&#160;&#160;&#160;&#160;ERR_TOOMANYTARGETS<br/> "&lt;target&gt; :Duplicate recipients. No message delivered"<br/><br/> - Returned to a client which is attempting to send a PRIVMSG/NOTICE using the user@host destination format and for a user@host which has several occurrences.  </li>
+  <li>409&#160;&#160;&#160;&#160;ERR_NOORIGIN<br/> ":No origin specified"<br/><br/> - PING or PONG message missing the originator parameter which is required since these commands must work without valid prefixes.  </li>
+  <li>410&#160;&#160;&#160;&#160;ERR_INVALIDCAPCMD<br/> "&lt;command&gt; :Invalid CAP command" </li>
+  <li>411&#160;&#160;&#160;&#160;ERR_NORECIPIENT<br/> ":No recipient given (&lt;command&gt;)" </li>
+  <li>412&#160;&#160;&#160;&#160;ERR_NOTEXTTOSEND<br/> ":No text to send" </li>
+  <li>413&#160;&#160;&#160;&#160;ERR_NOTOPLEVEL<br/> "&lt;mask&gt; :No toplevel domain specified" </li>
+  <li>414&#160;&#160;&#160;&#160;ERR_WILDTOPLEVEL<br/> "&lt;mask&gt; :Wildcard in toplevel domain"<br/><br/> - 412 - 414 are returned by PRIVMSG to indicate that the message wasn't delivered for some reason. ERR_NOTOPLEVEL and ERR_WILDTOPLEVEL are errors that are returned when an invalid use of "PRIVMSG $&lt;server&gt;" or "PRIVMSG #&lt;host&gt;" is attempted.  </li>
+  <li>421&#160;&#160;&#160;&#160;ERR_UNKNOWNCOMMAND<br/> "&lt;command&gt; :Unknown command"<br/><br/> - Returned to a registered client to indicate that the command sent is unknown by the server.  </li>
+  <li>422&#160;&#160;&#160;&#160;ERR_NOMOTD<br/> ":MOTD File is missing"<br/><br/> - Server's MOTD file could not be opened by the server.  </li>
+  <li>423&#160;&#160;&#160;&#160;ERR_NOADMININFO<br/> "&lt;server&gt; :No administrative info available"<br/><br/> - Returned by a server in response to an ADMIN message when there is an error in finding the appropriate information.  </li>
+  <li>424&#160;&#160;&#160;&#160;ERR_FILEERROR<br/> ":File error doing &lt;file op&gt; on &lt;file&gt;"<br/><br/> - Generic error message used to report a failed file operation during the processing of a message.  </li>
+  <li>431&#160;&#160;&#160;&#160;ERR_NONICKNAMEGIVEN<br/> ":No nickname given"<br/><br/> - Returned when a nickname parameter expected for a command and isn't found.  </li>
+  <li>432&#160;&#160;&#160;&#160;ERR_ERRONEUSNICKNAME<br/> "&lt;nick&gt; :Erroneus nickname"<br/><br/> - Returned after receiving a NICK message which contains characters which do not fall in the defined set.  </li>
+  <li>433&#160;&#160;&#160;&#160;ERR_NICKNAMEINUSE<br/> "&lt;nick&gt; :Nickname is already in use"<br/><br/> - Returned when a NICK message is processed that results in an attempt to change to a currently existing nickname.  </li>
+  <li>436&#160;&#160;&#160;&#160;ERR_NICKCOLLISION<br/> "&lt;nick&gt; :Nickname collision KILL"<br/><br/> - Returned by a server to a client when it detects a nickname collision (registered of a NICK that already exists by another server).  </li>
+  <li>441&#160;&#160;&#160;&#160;ERR_USERNOTINCHANNEL<br/> "&lt;nick&gt; &lt;channel&gt; :They aren't on that channel"<br/><br/> - Returned by the server to indicate that the target user of the command is not on the given channel.  </li>
+  <li>442&#160;&#160;&#160;&#160;ERR_NOTONCHANNEL<br/> "&lt;channel&gt; :You're not on that channel"<br/><br/> - Returned by the server whenever a client tries to perform a channel effecting command for which the client isn't a member.  </li>
+  <li>443&#160;&#160;&#160;&#160;ERR_USERONCHANNEL<br/> "&lt;user&gt; &lt;channel&gt; :is already on channel"<br/><br/> - Returned when a client tries to invite a user to a channel they are already on.  </li>
+  <li>444&#160;&#160;&#160;&#160;ERR_NOLOGIN<br/> "&lt;user&gt; :User not logged in"<br/><br/> - Returned by the summon after a SUMMON command for a user was unable to be performed since they were not logged in.  </li>
+  <li>445&#160;&#160;&#160;&#160;ERR_SUMMONDISABLED<br/> ":SUMMON has been disabled"<br/><br/> - Deprecated </li>
+  <li>446&#160;&#160;&#160;&#160;ERR_USERSDISABLED<br/> ":USERS has been disabled"<br/><br/> - Returned as a response to the USERS command.  Must be returned by any server which does not implement it.  </li>
+  <li>451&#160;&#160;&#160;&#160;ERR_NOTREGISTERED<br/> ":You have not registered"<br/><br/> - Returned by the server to indicate that the client must be registered before the server will allow it to be parsed in detail.  </li>
+  <li>461&#160;&#160;&#160;&#160;ERR_NEEDMOREPARAMS<br/> "&lt;command&gt; :Not enough parameters"<br/><br/> - Returned by the server by numerous commands to indicate to the client that it didn't supply enough parameters.  </li>
+  <li>462&#160;&#160;&#160;&#160;ERR_ALREADYREGISTRED<br/> ":You may not reregister"<br/><br/> - Returned by the server to any link which tries to change part of the registered details (such as password or user details from second USER message).  </li>
+  <li>463&#160;&#160;&#160;&#160;ERR_NOPERMFORHOST<br/> ":Your host isn't among the privileged"<br/><br/> - Returned to a client which attempts to register with a server which does not been setup to allow connections from the host the attempted connection is tried.  </li>
+  <li>464&#160;&#160;&#160;&#160;ERR_PASSWDMISMATCH<br/> ":Password incorrect"<br/><br/> - Returned to indicate a failed attempt at registering a connection for which a password was required and was either not given or incorrect.  </li>
+  <li>465&#160;&#160;&#160;&#160;ERR_YOUREBANNEDCREEP<br/> ":You are banned from this server"<br/><br/> - Returned after an attempt to connect and register yourself with a server which has been setup to explicitly deny connections to you.  </li>
+  <li>467&#160;&#160;&#160;&#160;ERR_KEYSET<br/> "&lt;channel&gt; :Channel key already set" </li>
+  <li>471&#160;&#160;&#160;&#160;ERR_CHANNELISFULL<br/> "&lt;channel&gt; :Cannot join channel (+l)" </li>
+  <li>472&#160;&#160;&#160;&#160;ERR_UNKNOWNMODE<br/> "&lt;char&gt; :is unknown mode char to me" </li>
+  <li>473&#160;&#160;&#160;&#160;ERR_INVITEONLYCHAN<br/> "&lt;channel&gt; :Cannot join channel (+i)" </li>
+  <li>474&#160;&#160;&#160;&#160;ERR_BANNEDFROMCHAN<br/> "&lt;channel&gt; :Cannot join channel (+b)" </li>
+  <li>475&#160;&#160;&#160;&#160;ERR_BADCHANNELKEY<br/> "&lt;channel&gt; :Cannot join channel (+k)" </li>
+  <li>481&#160;&#160;&#160;&#160;ERR_NOPRIVILEGES<br/> ":Permission Denied- You're not an IRC operator"<br/><br/> - Any command requiring operator privileges to operate must return this error to indicate the attempt was unsuccessful.  </li>
+  <li>482&#160;&#160;&#160;&#160;ERR_CHANOPRIVSNEEDED<br/> "&lt;channel&gt; :You're not channel operator"<br/><br/> - Any command requiring 'chanop' privileges (such as MODE messages) must return this error if the client making the attempt is not a chanop on the specified channel.  </li>
+  <li>483&#160;&#160;&#160;&#160;ERR_CANTKILLSERVER<br/> ":You cant kill a server!"<br/><br/> - Any attempts to use the KILL command on a server are to be refused and this error returned directly to the client.  </li>
+  <li>491&#160;&#160;&#160;&#160;ERR_NOOPERHOST<br/> ":No O-lines for your host"<br/><br/> - If a client sends an OPER message and the server has not been configured to allow connections from the client's host as an operator, this error must be returned.  </li>
+  <li>501&#160;&#160;&#160;&#160;ERR_UMODEUNKNOWNFLAG<br/> ":Unknown MODE flag"<br/><br/> - Returned by the server to indicate that a MODE message was sent with a nickname parameter and that the a mode flag sent was not recognized.  </li>
+  <li>502&#160;&#160;&#160;&#160;ERR_USERSDONTMATCH<br/> ":Cant change mode for other users"<br/><br/> - Error sent to any user trying to view or change the user mode for a user other than themselves.  </li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#ClientServerAuthentication" id="ClientServerAuthentication">Client and server authentication</a></h1>
+<p id="rfc.section.6.p.1">Clients and servers are both subject to the same level of authentication.  For both, an IP number to hostname lookup (and reverse check on this) is performed for all connections made to the server.  Both connections are then subject to a password check (if there is a password set for that connection).  These checks are possible on all connections although the password check is only commonly used with servers.  </p>
+<p id="rfc.section.6.p.2">An additional check that is becoming of more and more common is that of the username responsible for making the connection.  Finding the username of the other end of the connection typically involves connecting to an authentication server such as IDENT as described in RFC 1413.  [TODO: Is this still best common practice (I think it isn't and/or shouldn't be)] </p>
+<p id="rfc.section.6.p.3">Given that without passwords it is not easy to reliably determine who is on the other end of a network connection, use of passwords is strongly recommended on inter-server connections in addition to any other measures such as using an ident server.  </p>
+<p id="rfc.section.6.p.4">[TODO: Modify this section to mention SASL and use of TLS] </p>
+<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#CurrentImplementations" id="CurrentImplementations">Current implementations</a></h1>
+<h1 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1.</a> <a href="#TranportLayers" id="TranportLayers">Transport layers</a></h1>
+<h1 id="rfc.section.7.1.1"><a href="#rfc.section.7.1.1">7.1.1.</a> <a href="#TCP" id="TCP">TCP</a></h1>
+<p id="rfc.section.7.1.1.p.1">IRC has been implemented on top of TCP since TCP supplies a reliable network protocol which is well suited to this scale of conferencing. The use of multicast IP is an alternative, but it is not widely available or supported, and does not look like it will be in the near future.  </p>
+<h1 id="rfc.section.7.1.2"><a href="#rfc.section.7.1.2">7.1.2.</a> <a href="#SCTP" id="SCTP">SCTP</a></h1>
+<p id="rfc.section.7.1.2.p.1">[TODO: SCTP has been suggested, awaiting specification.] </p>
+<h1 id="rfc.section.7.1.3"><a href="#rfc.section.7.1.3">7.1.3.</a> <a href="#UNIXSockets" id="UNIXSockets">UNIX sockets</a></h1>
+<p id="rfc.section.7.1.3.p.1">Given that Unix domain sockets allow listen/connect operations, the current implementation can be configured to listen and accept both client and server connections on a Unix domain socket.  These are recognized as sockets where the hostname starts with a '/'.  </p>
+<p id="rfc.section.7.1.3.p.2">When providing any information about the connections on a Unix domain socket, the server is required to supplant the actual hostname in place of the pathname unless the actual socket name is being asked for.  </p>
+<h1 id="rfc.section.7.2"><a href="#rfc.section.7.2">7.2.</a> <a href="#CommandParsing" id="CommandParsing">Command parsing</a></h1>
+<p id="rfc.section.7.2.p.1">To provide useful 'non-buffered' network IO for clients and servers, each connection is given its own private 'input buffer' in which the results of the most recent read and parsing are kept.  A buffer size of 1024 bytes is used so as to hold 1 full message (including message tags), although, this will usually hold several commands.  The private buffer is parsed after every read operation for valid messages.  When dealing with multiple messages from one client in the buffer, care should be taken in case one happens to cause the client to be 'removed'.  </p>
+<h1 id="rfc.section.7.3"><a href="#rfc.section.7.3">7.3.</a> <a href="#MessageDelivery" id="MessageDelivery">Message delivery</a></h1>
+<p id="rfc.section.7.3.p.1">It is common to find network links saturated or hosts to which you are sending data unable to send data.  Although Unix typically handles this through the TCP window and internal buffers, the server often has large amounts of data to send (especially when a new server-server link forms) and the small buffers provided in the kernel are not enough for the outgoing queue.  To alleviate this problem, a "send queue" is used as a FIFO queue for data to be sent.  A typical "send queue" may grow to 200 Kbytes on a large IRC network with a slow network connection when a new server connects.  </p>
+<p id="rfc.section.7.3.p.2">When polling its connections, a server will first read and parse all incoming data, queuing any data to be sent out.  When all available input is processed, the queued data is sent.  This reduces the number of write() system calls and helps TCP make bigger packets.  </p>
+<h1 id="rfc.section.7.4"><a href="#rfc.section.7.4">7.4.</a> <a href="#ConnectionLiveness" id="ConnectionLiveness">Connection 'Liveness'</a></h1>
+<p id="rfc.section.7.4.p.1">To detect when a connection has died or become unresponsive, the server must ping each of its connections that it doesn't get a response from in a given amount of time.  </p>
+<p id="rfc.section.7.4.p.2">If a connection doesn't respond in time, its connection is closed using the appropriate procedures.  A connection is also dropped if its sendq grows beyond the maximum allowed, because it is better to close a slow connection than have a server process block.  </p>
+<h1 id="rfc.section.7.5"><a href="#rfc.section.7.5">7.5.</a> <a href="#EstablishingClientServerConnection" id="EstablishingClientServerConnection">Establishing a server to client connection</a></h1>
+<p id="rfc.section.7.5.p.1">Upon connecting to an IRC server, a client is sent the MOTD (if present) as well as the current user/server count (as per the LUSER command).  The server is also required to give an unambiguous message to the client which states its name and version as well as any other introductory messages which may be deemed appropriate.  </p>
+<h1 id="rfc.section.7.6"><a href="#rfc.section.7.6">7.6.</a> <a href="#EstablishingServerServerConnection" id="EstablishingServerServerConnection">Establishing a server-server connection</a></h1>
+<p id="rfc.section.7.6.p.1">The process of establishing of a server-to-server connection is fraught with danger since there are many possible areas where problems can occur - the least of which are race conditions.  </p>
+<p id="rfc.section.7.6.p.2">After a server has received a connection following by a PASS/SERVER pair which were recognised as being valid, the server should then reply with its own PASS/SERVER information for that connection as well as all of the other state information it knows about as described below.  </p>
+<p id="rfc.section.7.6.p.3">When the initiating server receives a PASS/SERVER pair, it too then checks that the server responding is authenticated properly before accepting the connection to be that server.  </p>
+<h1 id="rfc.section.7.6.1"><a href="#rfc.section.7.6.1">7.6.1.</a> <a href="#ExchangeOfState" id="ExchangeOfState">Server exchange of state information when connecting</a></h1>
+<p id="rfc.section.7.6.1.p.1">The order of state information being exchanged between servers is essential.  The required order is as follows: </p>
+
+<ol>
+  <li>all known other servers;</li>
+  <li>all known user information;</li>
+  <li>all known channel information.</li>
+</ol>
+
+<p> </p>
+<p id="rfc.section.7.6.1.p.2">Information regarding servers is sent via extra SERVER messages, user information with NICK/USER/MODE/JOIN messages and channels with MODE messages.  </p>
+<p id="rfc.section.7.6.1.p.3">NOTE: channel topics are *NOT* exchanged here because the TOPIC command overwrites any old topic information, so at best, the two sides of the connection would exchange topics.  </p>
+<p id="rfc.section.7.6.1.p.4">By passing the state information about servers first, any collisions with servers that already exist occur before nickname collisions due to a second server introducing a particular nickname.  Due to the IRC network only being able to exist as an acyclic graph, it may be possible that the network has already reconnected in another location, the place where the collision occurs indicating where the net needs to split.  </p>
+<p id="rfc.section.7.6.1.p.5">[TODO: Update this with a reference to TS6/P10 server-to-server protocols?] </p>
+<h1 id="rfc.section.7.7"><a href="#rfc.section.7.7">7.7.</a> <a href="#TerminatingClientServerConnection" id="TerminatingClientServerConnection">Terminating server-client connections</a></h1>
+<p id="rfc.section.7.7.p.1">When a client connection closes, a QUIT message is generated on behalf of the client by the server to which the client connected.  No other message is to be generated or used.  </p>
+<h1 id="rfc.section.7.8"><a href="#rfc.section.7.8">7.8.</a> <a href="#TerminatingServerServerConnection" id="TerminatingServerServerConnection">Terminating server-server connections</a></h1>
+<p id="rfc.section.7.8.p.1">If a server-server connection is closed, either via a remotely generated SQUIT or 'natural' causes, the rest of the connected IRC network must have its information updated with by the server which detected the closure.  The server then sends a list of SQUITs (one for each server behind that connection) and a list of QUITs (again, one for each client behind that connection).  </p>
+<h1 id="rfc.section.7.9"><a href="#rfc.section.7.9">7.9.</a> <a href="#TrackingNickChanges" id="TrackingNickChanges">Tracking nickname changes</a></h1>
+<p id="rfc.section.7.9.p.1">All IRC servers are required to keep a history of recent nickname changes.  This is required to allow the server to have a chance of keeping in touch of things when nick-change race conditions occur with commands which manipulate them.  Commands which must trace nick changes are: </p>
+
+<ul>
+  <li>KILL (the nick being killed)</li>
+  <li>MODE (+/- o,v)</li>
+  <li>KICK (the nick being kicked)</li>
+</ul>
+
+<p> No other commands are to have nick changes checked for.  </p>
+<p id="rfc.section.7.9.p.2">In the above cases, the server is required to first check for the existence of the nickname, then check its history to see who that nick currently belongs to (if anyone!).  This reduces the chances of race conditions but they can still occur with the server ending up affecting the wrong client.  When performing a change trace for an above command it is recommended that a time range be given and entries which are too old ignored.  </p>
+<p id="rfc.section.7.9.p.3">For a reasonable history, a server should be able to keep previous nickname for every client it knows about if they all decided to change.  This size is limited by other factors (such as memory, etc).  </p>
+<h1 id="rfc.section.7.10"><a href="#rfc.section.7.10">7.10.</a> <a href="#FloodControl" id="FloodControl">Flood control of clients</a></h1>
+<p id="rfc.section.7.10.p.1">With a large network of interconnected IRC servers, it is quite easy for any single client attached to the network to supply a continuous stream of messages that result in not only flooding the network, but also degrading the level of service provided to others.  Rather than require every 'victim' to be provide their own protection, flood protection SHOULD be written into the server and applied to all clients except services.  The current algorithm is as follows: </p>
+
+<ol>
+  <li>check to see if client's `message timer' is less than current time (set to be equal if it is);</li>
+  <li>read any data present from the client;</li>
+  <li>while the timer is less than ten seconds ahead of the current time, parse any present messages and penalize the client by 2 seconds for each message;</li>
+</ol>
+
+<p> which in essence means that the client may send 1 message every 2 seconds without being adversely affected.  </p>
+<h1 id="rfc.section.7.11"><a href="#rfc.section.7.11">7.11.</a> <a href="#NonBlockingLookups" id="NonBlockingLookups">Non-blocking lookups</a></h1>
+<p id="rfc.section.7.11.p.1">In a real-time environment, it is essential that a server process do as little waiting as possible so that all the clients are serviced fairly.  Obviously this requires non-blocking IO on all network read/write operations.  For normal server connections, this was not difficult, but there are other support operations that may cause the server to block (such as disk reads).  Where possible, such activity should be performed with a short timeout.  </p>
+<h1 id="rfc.section.7.12"><a href="#rfc.section.7.12">7.12.</a> <a href="#Operators" id="Operators">Operators</a></h1>
+<p id="rfc.section.7.12.p.1">The granting of operator privileges to a disruptive person can have dire consequences for the well-being of the IRC net in general due to the powers given to them.  Thus, the acquisition of such powers should not be very easy.  The current setup requires two 'passwords' to be used although one of them is usually easy guessed.  Storage of oper passwords in configuration files is preferable to hard coding them in and should be stored in a crypted format (ie using crypt(3) from Unix) to prevent easy theft.  </p>
+<h1 id="rfc.section.7.13"><a href="#rfc.section.7.13">7.13.</a> <a href="#AllowingServersToConnect" id="AllowingServersToConnect">Allowing servers to connect</a></h1>
+<p id="rfc.section.7.13.p.1">The interconnection of server is not a trivial matter: a bad connection can have a large impact on the usefulness of IRC.  Thus, each server should have a list of servers to which it may connect and which servers may connect to it.  Under no circumstances should a server allow an arbitrary host to connect as a server.  In addition to which servers may and may not connect, the configuration file should also store the password and other characteristics of that link.  </p>
+<h1 id="rfc.section.7.14"><a href="#rfc.section.7.14">7.14.</a> <a href="#Andministrivia" id="Andministrivia">Administrivia</a></h1>
+<p id="rfc.section.7.14.p.1">To provide accurate and valid replies to the ADMIN command (see section 4.3.7), the server should find the relevant details in the configuration.  </p>
+<h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#Acknowledgements" id="Acknowledgements">Acknowledgements</a></h1>
+<p id="rfc.section.8.p.1">This template was derived from an initial version written by Pekka Savola and contributed by him to the xml2rfc project.</p>
+<h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#IANA" id="IANA">IANA Considerations</a></h1>
+<p id="rfc.section.9.p.1">Following the policies outlined in "Guidelines for Writing an IANA Considerations Section in RFCs" <a href="#RFC5226">[RFC5226]</a>, this document defines a new registry Internet Relay Chat (IRC) protocol containing three namespaces: </p>
+<p/>
+
+<ul>
+  <li>IRC Capability Registry - <a href="#CapabilityRegistry">Section 9.1</a></li>
+  <li>IRC Tag Registry - <a href="#TagRegistry">Section 9.2</a></li>
+  <li>IRC Numeric Registry - <a href="#NumericRegistry">Section 9.3</a></li>
+</ul>
+
+<p> </p>
+<h1 id="rfc.section.9.1"><a href="#rfc.section.9.1">9.1.</a> <a href="#CapabilityRegistry" id="CapabilityRegistry">IRC capability registry</a></h1>
+<p id="rfc.section.9.1.p.1">Values in this registry are short ASCII strings that MUST NOT contain a space, equals sign ("="), non-printable character or begin with a dash ("-") or tilde ("~"). They are to be assigned according to the "Specification Required" policy defined in <a href="#RFC5226">[RFC5226]</a>, except where the capability is a vendor-specific capability.  </p>
+<p id="rfc.section.9.1.p.2">Values which contain a period character (".") designate a vendor-specific capability and are reserved for Private Use. These names SHALL be prefixed by a valid DNS domain name, and slash e.g. "example.org/example-cap".  </p>
+<h1 id="rfc.section.9.2"><a href="#rfc.section.9.2">9.2.</a> <a href="#TagRegistry" id="TagRegistry">IRC tag registry</a></h1>
+<p id="rfc.section.9.2.p.1">Values in this registry are short ASCII strings that MUST NOT contain a space, equals sign ("="), semicolon (";") or non-printable character. They are to be assigned according to the "Specification Required" policy defined in <a href="#RFC5226">[RFC5226]</a>, except where the tag is a vendor-specific tag.  </p>
+<p id="rfc.section.9.2.p.2">Values which contain a slash character ("/") designate a vendor-specific tag and are reserved for Private Use. These names SHALL be prefixed by a valid DNS domain name e.g. "example.org/example-tag".  </p>
+<p id="rfc.section.9.2.p.3">Documents defining tags MUST specifiy that the tag may only be used when the corresponding capability is enabled.  </p>
+<h1 id="rfc.section.9.3"><a href="#rfc.section.9.3">9.3.</a> <a href="#NumericRegistry" id="NumericRegistry">IRC numeric registry</a></h1>
+<p id="rfc.section.9.3.p.1">Values in this registry are 3-digit numbers allocated on a First Come First Served basis.  </p>
+<p id="rfc.section.9.3.p.2">Requests for assignments MUST include a short name for the requested numeric (e.g. "RPL_EXAMPLEREPLY" for replies and "ERR_EXAMPLERROR" for errors) and state the format of the list of parameters (if any).  </p>
+<p id="rfc.section.9.3.p.3">Error numerics SHOULD be allocated from the range 400-599 and 910-999.  </p>
+<p id="rfc.section.9.3.p.4">Values in the range 100-199 are Reserved.  </p>
+<p id="rfc.section.9.3.p.5">A list of initial assignments is given in section <a href="#NumericReplies">Section 5</a> </p>
+<h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> <a href="#Security" id="Security">Security Considerations</a></h1>
+<p id="rfc.section.10.p.1">All drafts are required to have a security considerations section.  See RFC 3552 for a guide.</p>
+<h1 id="rfc.references"><a href="#rfc.references">11.</a> Normative References</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="reference">
+        <b id="RFC1459">[RFC1459]</b>
+      </td>
+      <td class="top"><a href="mailto:jto@tolsun.oulu.fi">Oikarinen, J.</a> and <a href="mailto:avalon@coombs.anu.edu.au">D. Reed</a>, "<a href="http://tools.ietf.org/html/rfc1459">Internet Relay Chat Protocol</a>", RFC 1459, May 1993.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC2119">[RFC2119]</b>
+      </td>
+      <td class="top"><a href="mailto:sob@harvard.edu" title="Harvard University">Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, March 1997.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC3629">[RFC3629]</b>
+      </td>
+      <td class="top"><a>Yergeau, F.</a>, "<a href="http://tools.ietf.org/html/rfc3629">UTF-8, a transformation format of ISO 10646</a>", STD 63, RFC 3629, November 2003.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC5226">[RFC5226]</b>
+      </td>
+      <td class="top"><a>Narten, T.</a> and <a>H. Alvestrand</a>, "<a href="http://tools.ietf.org/html/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>", BCP 26, RFC 5226, May 2008.</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="rfc.appendix.A"><a href="#rfc.appendix.A">Appendix A.</a> <a href="#ISUPPORT-tokens" id="ISUPPORT-tokens">List of known RPL_ISUPPORT tokens</a></h1>
+<h1 id="rfc.appendix.A.1"><a href="#rfc.appendix.A.1">A.1.</a> <a href="#ISUPPORT-CASEMAPPING" id="ISUPPORT-CASEMAPPING">CASEMAPPING</a></h1>
+<h1 id="rfc.appendix.A.2"><a href="#rfc.appendix.A.2">A.2.</a> <a href="#ISUPPORT-CHARSET" id="ISUPPORT-CHARSET">CHARSET</a></h1>
+<h1 id="rfc.appendix.A.3"><a href="#rfc.appendix.A.3">A.3.</a> <a href="#ISUPPORT-PREFIX" id="ISUPPORT-PREFIX">PREFIX</a></h1>
+<h1 id="rfc.appendix.A.4"><a href="#rfc.appendix.A.4">A.4.</a> <a href="#ISUPPORT-CHANTYPES" id="ISUPPORT-CHANTYPES">CHANTYPES</a></h1>
+<h1 id="rfc.appendix.A.5"><a href="#rfc.appendix.A.5">A.5.</a> <a href="#ISUPPORT-CHANMODES" id="ISUPPORT-CHANMODES">CHANMODES</a></h1>
+<h1 id="rfc.appendix.A.6"><a href="#rfc.appendix.A.6">A.6.</a> <a href="#ISUPPORT-NETWORK" id="ISUPPORT-NETWORK">NETWORK</a></h1>
+<h1 id="rfc.appendix.A.7"><a href="#rfc.appendix.A.7">A.7.</a> <a href="#ISUPPORT-MODES" id="ISUPPORT-MODES">MODES</a></h1>
+<h1 id="rfc.appendix.A.8"><a href="#rfc.appendix.A.8">A.8.</a> <a href="#ISUPPORT-MAXCHANNELS" id="ISUPPORT-MAXCHANNELS">MAXCHANNELS</a></h1>
+<h1 id="rfc.appendix.A.9"><a href="#rfc.appendix.A.9">A.9.</a> <a href="#ISUPPORT-CHANLIMIT" id="ISUPPORT-CHANLIMIT">CHANLIMIT</a></h1>
+<h1 id="rfc.appendix.A.10"><a href="#rfc.appendix.A.10">A.10.</a> <a href="#ISUPPORT-NICKLEN" id="ISUPPORT-NICKLEN">NICKLEN</a></h1>
+<h1 id="rfc.appendix.A.11"><a href="#rfc.appendix.A.11">A.11.</a> <a href="#ISUPPORT-MAXLIST" id="ISUPPORT-MAXLIST">MAXLIST</a></h1>
+<h1 id="rfc.appendix.A.12"><a href="#rfc.appendix.A.12">A.12.</a> <a href="#ISUPPORT-EXCEPTS" id="ISUPPORT-EXCEPTS">EXCEPTS</a></h1>
+<h1 id="rfc.appendix.A.13"><a href="#rfc.appendix.A.13">A.13.</a> <a href="#ISUPPORT-INVEX" id="ISUPPORT-INVEX">INVEX</a></h1>
+<h1 id="rfc.appendix.A.14"><a href="#rfc.appendix.A.14">A.14.</a> <a href="#ISUPPORT-KNOCK" id="ISUPPORT-KNOCK">KNOCK</a></h1>
+<h1 id="rfc.appendix.A.15"><a href="#rfc.appendix.A.15">A.15.</a> <a href="#ISUPPORT-STATUSMSG" id="ISUPPORT-STATUSMSG">STATUSMSG</a></h1>
+<h1 id="rfc.appendix.A.16"><a href="#rfc.appendix.A.16">A.16.</a> <a href="#ISUPPORT-CALLERID" id="ISUPPORT-CALLERID">CALLERID</a></h1>
+<h1 id="rfc.appendix.A.17"><a href="#rfc.appendix.A.17">A.17.</a> <a href="#ISUPPORT-CHANNELLEN" id="ISUPPORT-CHANNELLEN">CHANNELLEN</a></h1>
+<h1 id="rfc.appendix.A.18"><a href="#rfc.appendix.A.18">A.18.</a> <a href="#ISUPPORT-TOPICLEN" id="ISUPPORT-TOPICLEN">TOPICLEN</a></h1>
+<h1 id="rfc.appendix.A.19"><a href="#rfc.appendix.A.19">A.19.</a> <a href="#ISUPPORT-AWAYLEN" id="ISUPPORT-AWAYLEN">AWAYLEN</a></h1>
+<h1 id="rfc.authors">
+  <a href="#rfc.authors">Author's Address</a>
+</h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Jack Allnutt</span> (editor)
+	  <span class="n hidden">
+		<span class="family-name">Allnutt</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Kiwi IRC</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:jack@allnutt.eu">jack@allnutt.eu</a></span>
+
+<span class="vcardline">URI: <a href="http://allnutt.eu/">http://allnutt.eu/</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
